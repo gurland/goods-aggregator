@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import './style.scss';
 import { retailChainsMock } from '../../utils/constants';
 
 import { BrandCard } from '../../components';
 
-function Homepage(props) {
+function Homepage() {
   return (
     <div className="main-content">
       <div className="cards-wrap">
@@ -17,7 +16,5 @@ function Homepage(props) {
     </div>
   );
 }
-
-Homepage.propTypes = {};
 
 export default Homepage;
