@@ -8,7 +8,7 @@ function Navbar(props) {
     <span>
       {props.position === 'top' && (
         <Menu fluid widths={3}>
-          <Menu.Item></Menu.Item>
+          <Menu.Item />
           <Menu.Item>
             <Input className="icon" iconPosition="left" icon="search" placeholder="Search..." />
           </Menu.Item>
@@ -19,13 +19,13 @@ function Navbar(props) {
       )}
       {props.position === 'bottom' && (
         <Menu fluid widths={3}>
-          <Menu.Item></Menu.Item>
+          <Menu.Item />
           <Menu.Item>
             <Button primary basic>
               Open map
             </Button>
           </Menu.Item>
-          <Menu.Menu position="right"></Menu.Menu>
+          <Menu.Menu position="right" />
         </Menu>
       )}
     </span>
