@@ -1,0 +1,69 @@
+@import './mixins';
+
+.ui {
+  &.menu {
+    border-radius: 0;
+    margin: 0;
+    box-shadow: initial;
+    border-color: #eeeeee;
+    height: toRem(64px);
+
+    @media #{$max1199} {
+      min-height: toRem(56px) !important;
+    }
+    .item {
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &.card {
+    border: toRem(1px) solid #ebebeb;
+    box-shadow: initial;
+    margin: 0;
+
+    .content {
+      padding: toRem(30px);
+
+      @media #{$max1199} {
+        padding: toRem(20px);
+      }
+      .header {
+        font-size: toRem(48px) !important;
+        color: #000000;
+      }
+      .description {
+        color: #666666;
+        font-size: toRem(18px);
+      }
+      &.extra {
+        padding-top: 0;
+        border-top: initial !important;
+      }
+    }
+  }
+
+  &.button {
+    font-size: toRem(15px);
+
+    &.primary {
+      background-color: #dbeefd;
+      color: #2196f3;
+
+      &:hover, &:active, &:focus {
+        background-color: #2196f3;
+        color: #dbeefd;
+      }
+    }
+  }
+  
+  &.input {
+    input {
+      background-color: #f5f5f5 !important;
+      border-radius: toRem(30px);
+      color: #000000 !important;
+      border: initial;
+    }
+  }
+}

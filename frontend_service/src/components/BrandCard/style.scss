@@ -1,0 +1,26 @@
+@import '../../mixins';
+
+.card {
+  .content {
+    .description {
+      .info-wrap {
+        .info {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: toRem(3px);
+        }
+      }
+    }
+    &.extra {
+      align-items: center;
+      display: flex;
+
+      .price {
+        width: 100%;
+        text-align: right;
+        font-size: toRem(35px);
+        color: #000000;
+      }
+    }
+  }
+}
