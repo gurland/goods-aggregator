@@ -29,6 +29,19 @@ function BrandCard(props) {
   );
 }
 
-BrandCard.propTypes = {};
+BrandCard.propTypes = {
+  brandData: PropTypes.shape({
+    name: PropTypes.string,
+    avgPricePerKg: PropTypes.number,
+    stores: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        city: PropTypes.string,
+        coords: PropTypes.string,
+        lowestPricePerKg: PropTypes.number,
+      }),
+    ),
+  }),
+};
 
 export default BrandCard;
