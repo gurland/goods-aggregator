@@ -22,8 +22,6 @@ function BrandCard(props) {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        {/* findDOMNode is deprecated in StrictMode. */}
-        {/* <Button primary>Details</Button> */}
         <button className="ui primary button">Details</button>
         <span className="price">{props.brandData.avgPricePerKg + ' ₴'}</span>
       </Card.Content>
