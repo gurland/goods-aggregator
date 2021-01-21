@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Menu, Input, Radio } from 'semantic-ui-react';
+import { Menu, Input, Radio, Button } from 'semantic-ui-react';
 import './style.scss';
 
 function Navbar(props) {
@@ -21,7 +21,9 @@ function Navbar(props) {
         <Menu fluid widths={3}>
           <Menu.Item></Menu.Item>
           <Menu.Item>
-            <button className="ui primary button basic">Open map</button>
+            <Button primary basic>
+              Open map
+            </Button>
           </Menu.Item>
           <Menu.Menu position="right"></Menu.Menu>
         </Menu>

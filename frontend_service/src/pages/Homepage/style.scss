@@ -1,11 +1,10 @@
-@import '../../mixins';
+@import '../../styles/mixins';
 
 .main-content {
   .cards-wrap {
     display: flex;
     align-items: center;
     flex-grow: 1;
-    align-items: center;
     justify-content: center;
 
     .card {

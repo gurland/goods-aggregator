@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Card, Button } from 'semantic-ui-react';
-
+import PropTypes from 'prop-types';
 import './style.scss';
 
 function BrandCard(props) {
@@ -28,6 +28,19 @@ function BrandCard(props) {
   );
 }
 
-BrandCard.propTypes = {};
+BrandCard.propTypes = {
+  brandData: PropTypes.shape({
+    name: PropTypes.string,
+    avgPricePerKg: PropTypes.number,
+    stores: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        city: PropTypes.string,
+        coords: PropTypes.string,
+        lowestPricePerKg: PropTypes.number,
+      }),
+    ),
+  }),
+};
 
 export default BrandCard;

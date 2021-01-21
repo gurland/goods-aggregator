@@ -109,6 +109,4 @@ class Homepage extends React.Component {
   }
 }
 
-Homepage.propTypes = {};
-
 export default Homepage;
