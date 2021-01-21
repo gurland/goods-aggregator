@@ -4,9 +4,11 @@
   &.menu {
     border-radius: 0;
     margin: 0;
-    box-shadow: initial;
+    box-shadow: 0 toRem(1px) toRem(10px) 0 rgba(34,36,38,.15);
     border-color: #eeeeee;
     height: toRem(64px);
+    z-index: 1;
+    align-items: center;
 
     @media #{$max1199} {
       min-height: toRem(56px) !important;
@@ -15,6 +17,10 @@
       &::before {
         display: none;
       }
+      &.right {
+        justify-content: flex-end;
+        padding-right: toRem(30px) !important;
+      }
     }
   }
 
@@ -22,8 +28,10 @@
     border: toRem(1px) solid #ebebeb;
     box-shadow: initial;
     margin: 0;
-
+    transition: width .5s ease-in-out,
+                box-shadow .2s ease-in-out;
     .content {
+      transition: padding .2s ease-in-out;
       padding: toRem(30px);
 
       @media #{$max1199} {
@@ -41,6 +49,9 @@
         padding-top: 0;
         border-top: initial !important;
       }
+    }
+    &:hover {
+      box-shadow: 0 toRem(1px) toRem(10px) 0 rgba(34,36,38,.15);
     }
   }
 

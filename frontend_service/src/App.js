@@ -9,12 +9,13 @@ import { Homepage } from './pages';
 function App() {
   return (
     <Router>
-      <Navbar />
+      <Navbar position={'top'} />
       <Switch>
         <Route path="/" exact>
           <Homepage />
         </Route>
       </Switch>
+      <Navbar position={'bottom'} />
     </Router>
   );
 }

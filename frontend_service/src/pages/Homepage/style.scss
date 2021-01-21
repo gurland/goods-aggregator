@@ -1,14 +1,6 @@
 @import '../../mixins';
 
 .main-content {
-  padding: toRem(30px);
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-
-  @media #{$max1199} {
-    padding: toRem(15px);
-  }
   .cards-wrap {
     display: flex;
     align-items: center;
@@ -23,6 +15,10 @@
       margin: 0 toRem(15px) !important;
 
       @media #{$max1199} {
+        width: 50%;
+        min-width: 50%;
+      }
+      @media #{$max767} {
         width: 100%;
         min-width: 100%;
       }

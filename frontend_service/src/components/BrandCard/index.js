@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Card, Button } from 'semantic-ui-react';
 
@@ -22,9 +21,7 @@ function BrandCard(props) {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        {/* findDOMNode is deprecated in StrictMode. */}
-        {/* <Button primary>Details</Button> */}
-        <button className="ui primary button">Details</button>
+        <Button primary>Details</Button>
         <span className="price">{props.brandData.avgPricePerKg + ' ₴'}</span>
       </Card.Content>
     </Card>
