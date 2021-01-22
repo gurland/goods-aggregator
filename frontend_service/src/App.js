@@ -19,7 +19,6 @@ function App() {
           <Details />
         </Route>
       </Switch>
-      <Navbar position={'bottom'} />
     </Router>
   );
 }

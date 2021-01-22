@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Menu, Input, Radio, Button } from 'semantic-ui-react';
 import './style.scss';
@@ -32,6 +33,12 @@ function Navbar(props) {
   );
 }
 
-Navbar.propTypes = {};
+Navbar.propTypes = {
+  position: PropTypes.oneOf(['top', 'bottom']),
+};
+
+Navbar.deafultProps = {
+  position: 'top',
+};
 
 export default Navbar;
