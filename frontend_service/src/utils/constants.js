@@ -72,3 +72,16 @@ export const retailChainsMock = [
     ],
   },
 ];
+
+export const productsTableData = (() => {
+  const arr = [];
+  for (let i = 1; i <= 5; i++) {
+    arr.push({ title: `Гречка ${i}`, weight: `${100 * i} г`, price: Math.round(Math.random() * 100 * 100) / 100 });
+  }
+  return arr;
+})();
+
+export const links = {
+  homepage: '/',
+  details: '/details',
+};
