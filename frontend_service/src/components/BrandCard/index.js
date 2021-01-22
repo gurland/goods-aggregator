@@ -2,6 +2,9 @@ import React from 'react';
 
 import { Card, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import { links } from '../../utils/constants';
 import './style.scss';
 
 function BrandCard(props) {
@@ -21,7 +24,10 @@ function BrandCard(props) {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button primary>Details</Button>
+        <Link to={links.details}>
+          {/* TODO change link to actual */}
+          <Button primary>Details</Button>
+        </Link>
         <span className="price">{props.brandData.avgPricePerKg + ' ₴'}</span>
       </Card.Content>
     </Card>
