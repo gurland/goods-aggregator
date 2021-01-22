@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Menu, Input, Radio, Button } from 'semantic-ui-react';
+import { Menu, Input, Radio, Button, Icon } from 'semantic-ui-react';
 import './style.scss';
 
 function Navbar(props) {
   return (
-    <span>
+    <span className="navbar">
       {props.position === 'top' && (
         <Menu fluid widths={3}>
           <Menu.Item />
@@ -14,7 +14,8 @@ function Navbar(props) {
             <Input className="icon" iconPosition="left" icon="search" placeholder="Search..." />
           </Menu.Item>
           <Menu.Item position="right">
-            <Radio toggle />
+            <Radio toggle className="theme-toggle" />
+            <Icon name="bars" className="burger-menu" />
           </Menu.Item>
         </Menu>
       )}
