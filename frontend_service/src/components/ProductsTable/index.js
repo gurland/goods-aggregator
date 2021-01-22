@@ -5,10 +5,23 @@ import SuperTable from '../SuperTable';
 import { productsTableData } from '../../utils/constants';
 import { productsColumns } from './constants';
 
-function ProductTable(props) {
-  return <SuperTable columns={productsColumns} data={productsTableData} />;
+import { Card } from 'semantic-ui-react';
+import './style.scss';
+
+function ProductTable({ className }) {
+  return (
+    <Card fluid className={className}>
+      <SuperTable columns={productsColumns} data={productsTableData} className="product-table-rows" />
+    </Card>
+  );
 }
 
-ProductTable.propTypes = {};
+ProductTable.propTypes = {
+  className: PropTypes.string,
+};
+
+ProductTable.defaultProps = {
+  className: '',
+};
 
 export default ProductTable;

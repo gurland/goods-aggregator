@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import { createBodyRows, createHeaderRow, createBodyRowsMetadata } from './helpers';
 
-function SuperTable({ columns, data }) {
+function SuperTable({ columns, data, className }) {
   const rowsMetadata = createBodyRowsMetadata(columns, data);
   return (
-    <Table celled padded>
+    <Table celled padded compact selectable className={className}>
       <Table.Header>{createHeaderRow(columns)}</Table.Header>
       <Table.Body>{createBodyRows(columns, rowsMetadata)}</Table.Body>
     </Table>
@@ -23,6 +23,11 @@ SuperTable.propTypes = {
     }),
   ).isRequired,
   data: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+  className: PropTypes.string,
+};
+
+SuperTable.defaultProps = {
+  className: '',
 };
 
 export default SuperTable;
