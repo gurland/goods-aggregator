@@ -1,3 +1,5 @@
+@import "../../styles/mixins";
+
 .details-page {
   height: 100%;
   padding: 15px 15px 0 15px;
@@ -17,5 +19,9 @@
 
   &__filters {
     height: 100%;
+
+    @media #{$max1199} {
+      display: none !important;
+    }
   }
 }

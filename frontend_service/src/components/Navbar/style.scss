@@ -8,7 +8,7 @@
   .burger-menu {
     font-size: 1.5rem;
 
-    @media #{$min1281} {
+    @media #{$min1200} {
       display: none;
     }
   }
