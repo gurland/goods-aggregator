@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 import { Menu, Input, Radio, Icon } from 'semantic-ui-react';
+import { links } from '../../utils/constants';
 import './style.scss';
 
 import { MapModal } from '../index';
 
 function Navbar(props) {
+  const showBurger = useLocation().pathname === links.details;
+
   return (
     <span className="navbar">
       {props.position === 'top' && (
@@ -17,7 +21,7 @@ function Navbar(props) {
           </Menu.Item>
           <Menu.Item position="right">
             <Radio toggle className="theme-toggle" />
-            <Icon name="bars" className="burger-menu" />
+            {showBurger && <Icon name="bars" className="burger-menu" />}
           </Menu.Item>
         </Menu>
       )}
