@@ -1,32 +1,16 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Tab } from 'semantic-ui-react';
 
 import SuperTable from '../SuperTable';
 import { productsColumns } from './constants';
-import { getProducts } from '../../utils/api';
 
 import './style.scss';
 
-function ProductTable({ className, stores, category }) {
-  const [firstStore] = stores;
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentStoreId, setCurrentStoreId] = useState(firstStore.id);
-  const [tableData, setTableData] = useState([]);
-
-  const handleTabChange = useCallback((event, { activeIndex, panes }) => setCurrentStoreId(panes[activeIndex].id), []);
-
-  useEffect(() => {
-    setIsLoading(true);
-    (async () => {
-      const { data } = await getProducts(currentStoreId, category);
-      if (data.results?.length) {
-        setTableData(data.results);
-      }
-      setIsLoading(false);
-    })();
-  }, [currentStoreId, category]);
+function ProductTable({ className, stores, isLoading, tableData, currentStoreId, setCurrentStoreId }) {
+  const handleTabChange = useCallback((event, { activeIndex, panes }) => setCurrentStoreId(panes[activeIndex].id), [
+    setCurrentStoreId,
+  ]);
 
   const table = useMemo(
     () => (
@@ -67,7 +51,10 @@ ProductTable.propTypes = {
       coords: PropTypes.string,
     }),
   ).isRequired,
-  category: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  tableData: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
+  currentStoreId: PropTypes.string.isRequired,
+  setCurrentStoreId: PropTypes.func.isRequired,
 };
 
 ProductTable.defaultProps = {
