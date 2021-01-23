@@ -22,7 +22,7 @@ function Details() {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const { data } = await getProducts(currentStoreId, category);
+        const { data } = await getProducts(currentStoreId, category, selectedFilters);
         const { results, filters } = data;
         if (results?.length) {
           setTableData(results);
@@ -35,7 +35,7 @@ function Details() {
         setProductsLoading(false);
       })();
     }
-  }, [currentStoreId, category]);
+  }, [currentStoreId, category, selectedFilters]);
 
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
 
