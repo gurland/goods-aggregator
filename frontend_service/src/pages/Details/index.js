@@ -10,7 +10,7 @@ function Details() {
     <div className="details-page">
       <Grid centered className="details-page__grid">
         <Grid.Row columns={2}>
-          <Grid.Column largeScreen={13} computer={16} widescreen={13}>
+          <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">
             <PriceGraph className="details-page__price-graph" />
             <ProductTable className="details-page__product-table" />
           </Grid.Column>

@@ -6,6 +6,10 @@
 
   &__grid {
     height: 100%;
+
+    &--left-column {
+      height: 100%;
+    }
   }
 
   &__price-graph {
