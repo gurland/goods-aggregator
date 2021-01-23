@@ -19,3 +19,5 @@ export const getArrayOfProps = (arrayOfObjects, prop) => {
 };
 
 export const removeNil = (array) => array.filter((element) => !isNil(element));
+
+export const capitalize = (string = '') => string.charAt(0).toUpperCase() + string.slice(1);

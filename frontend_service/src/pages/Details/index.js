@@ -15,19 +15,27 @@ function Details() {
   const [productsLoading, setProductsLoading] = useState(true);
   const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
   const [tableData, setTableData] = useState([]);
+  const [tableFilters, setTableFilters] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const { data } = await getProducts(currentStoreId, category);
-        if (data.results?.length) {
-          setTableData(data.results);
+        const { data } = await getProducts(currentStoreId, category, selectedFilters);
+        const { results, filters } = data;
+        if (results?.length) {
+          setTableData(results);
         }
+
+        if (filters?.length) {
+          setTableFilters(filters);
+        }
+
         setProductsLoading(false);
       })();
     }
-  }, [currentStoreId, category]);
+  }, [currentStoreId, category, selectedFilters]);
 
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
 
@@ -46,8 +54,13 @@ function Details() {
               setCurrentStoreId={setCurrentStoreId}
             />
           </Grid.Column>
-          <Grid.Column largeScreen={3} widescreen={3}>
-            <DetailsPageFilters className="details-page__filters" />
+          <Grid.Column largeScreen={3} widescreen={3} className="details-page__grid--right-column">
+            <DetailsPageFilters
+              className="details-page__filters"
+              filters={tableFilters}
+              selectedFilters={selectedFilters}
+              setSelectedFilters={setSelectedFilters}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
