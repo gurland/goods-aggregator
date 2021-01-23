@@ -14,9 +14,6 @@
     z-index: 1;
     align-items: center;
 
-    @media #{$max1199} {
-      min-height: toRem(56px) !important;
-    }
     .item {
       &::before {
         display: none;

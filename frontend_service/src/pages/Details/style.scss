@@ -14,6 +14,13 @@
 
     &--left-column, &--right-column {
       height: 100%;
+
+    }
+
+    &--right-column {
+      @media #{$max1199} {
+        display: none !important;
+      }
     }
   }
 
