@@ -30,10 +30,10 @@
 
   &.card {
     border: toRem(1px) solid #ebebeb;
-    box-shadow: initial !important;
+    box-shadow: initial;
     margin: 0;
-    transition: width .5s ease-in-out,
-                box-shadow .2s ease-in-out;
+    transition: all .3s ease-in-out;
+
     .content {
       transition: padding .2s ease-in-out;
       padding: toRem(30px);
@@ -54,21 +54,26 @@
         border-top: initial !important;
       }
     }
-    &:hover {
-      box-shadow: 0 toRem(1px) toRem(10px) 0 rgba(34,36,38,.15);
-    }
   }
 
   &.button {
     font-size: toRem(15px);
-
+    transition: all .2s ease-in-out;
     &.primary {
       background-color: #dbeefd;
       color: #2196f3;
 
       &:hover, &:active, &:focus {
         background-color: #2196f3;
-        color: #dbeefd;
+        color: #ffffff;
+      }
+    }
+    &.basic {
+      &.primary {
+        &:hover {
+          background-color: #2196f3 !important;
+          color: #ffffff !important;
+        }
       }
     }
   }

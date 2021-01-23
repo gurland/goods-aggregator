@@ -10,7 +10,7 @@ import './style.scss';
 
 function BrandCard({ brandData }) {
   return (
-    <Card>
+    <Card className="brand-card">
       <Card.Content>
         <Card.Header>{brandData.name}</Card.Header>
         <Card.Description>

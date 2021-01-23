@@ -1,6 +1,6 @@
 @import '../../styles/mixins';
 
-.card {
+.brand-card {
   .content {
     .description {
       .info-wrap {
@@ -22,5 +22,8 @@
         color: #000000;
       }
     }
+  }
+  &:hover {
+    box-shadow: 0 0.07143rem 0.71429rem 0 rgba(34, 36, 38, 0.15) !important;
   }
 }

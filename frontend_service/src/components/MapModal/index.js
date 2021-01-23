@@ -119,7 +119,7 @@ function MapModal(props) {
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-        <Button basic primary>
+        <Button basic primary className="map-btn">
           Show Map
         </Button>
       }

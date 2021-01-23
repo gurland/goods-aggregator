@@ -1,5 +1,12 @@
 @import '../../styles/mixins';
 
+.map-btn {
+  width: toRem(300px);
+
+  @media #{$max767} {
+    width: 90%;
+  }
+}
 .mapChart {
   height: toRem(800px) !important;
 }

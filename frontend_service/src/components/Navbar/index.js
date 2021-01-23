@@ -22,7 +22,7 @@ function Navbar(props) {
         </Menu>
       )}
       {props.position === 'bottom' && (
-        <Menu fluid widths={3}>
+        <Menu fluid widths={1}>
           <Menu.Item>
             <MapModal />
           </Menu.Item>
