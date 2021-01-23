@@ -28,6 +28,8 @@
 			{
 				"extensions": [".js", ".jsx"]
 			}
-		]
+		],
+		"no-console": [1],
+		"react/prop-types": [1]
 	}
 }
