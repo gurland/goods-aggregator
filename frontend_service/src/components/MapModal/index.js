@@ -109,26 +109,6 @@ function MapModal(props) {
             },
           },
         },
-        {
-          type: 'effectScatter',
-          coordinateSystem: 'geo',
-          data: getStoresData(),
-          symbolSize: 12,
-          label: {
-            normal: {
-              show: false,
-            },
-            emphasis: {
-              show: false,
-            },
-          },
-          itemStyle: {
-            emphasis: {
-              borderColor: '#fff',
-              borderWidth: 1,
-            },
-          },
-        },
       ],
     };
   }
@@ -144,7 +124,7 @@ function MapModal(props) {
         </Button>
       }
     >
-      <ReactEcharts option={getOption()} />
+      <ReactEcharts className="mapChart" option={getOption()} />
     </Modal>
   );
 }

@@ -1,0 +1,11 @@
+@import '../../styles/mixins';
+
+.details-page__price-graph {
+  .content {
+    padding: toRem(10px) !important;
+
+    .echarts-for-react {
+      height: 100% !important;
+    }
+  }
+}

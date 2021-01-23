@@ -27,7 +27,7 @@
 
   &.card {
     border: toRem(1px) solid #ebebeb;
-    box-shadow: initial;
+    box-shadow: initial !important;
     margin: 0;
     transition: width .5s ease-in-out,
                 box-shadow .2s ease-in-out;

@@ -2,11 +2,78 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Card } from 'semantic-ui-react';
+import ReactEcharts from 'echarts-for-react';
+import './style.scss';
 
 function PriceGraph({ className }) {
+  const timeData = [];
+
+  for (let i = 1; i <= 30; i++) {
+    timeData.push(`2020/${i}/12`);
+  }
+
+  function getData() {
+    const data = [];
+
+    for (let i = 1; i <= 100; i++) {
+      data.push(Math.floor(Math.random() * Math.floor(40)));
+    }
+
+    return data;
+  }
+
+  function getOption() {
+    return {
+      tooltip: {
+        trigger: 'axis',
+        position: function (pt) {
+          return [pt[0], '10%'];
+        },
+      },
+      legend: {
+        data: ['Skvyrianka', 'Khutorok'],
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        axisLine: { onZero: false },
+        data: timeData,
+      },
+      yAxis: {
+        type: 'value',
+        boundaryGap: [0, '40%'],
+      },
+      dataZoom: [
+        {
+          type: 'inside',
+          start: 0,
+          end: 20,
+        },
+        {
+          start: 0,
+          end: 20,
+        },
+      ],
+      series: [
+        {
+          name: 'Skvyrianka',
+          type: 'line',
+          data: getData(),
+        },
+        {
+          name: 'Khutorok',
+          type: 'line',
+          data: getData(),
+        },
+      ],
+    };
+  }
+
   return (
     <Card fluid className={className}>
-      <Card.Content /> {/* <-- Рома, в'єби тут графік */}
+      <Card.Content>
+        <ReactEcharts option={getOption()} />
+      </Card.Content>
     </Card>
   );
 }
