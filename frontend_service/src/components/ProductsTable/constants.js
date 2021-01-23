@@ -25,7 +25,7 @@ export const productsColumns = [
   {
     header: 'Price',
     selector: 'price',
-    cell: (original) => original.price,
+    cell: (original) => (original.price / 100).toFixed(2),
   },
   {
     header: 'URL',
