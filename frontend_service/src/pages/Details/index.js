@@ -8,9 +8,9 @@ import { links } from '../../utils/constants';
 import './style.scss';
 
 function Details() {
-  const { stores } = useLocation();
+  const { stores, category } = useLocation();
 
-  if (!stores) return <Redirect to={links.homepage} />;
+  if (!stores || !category) return <Redirect to={links.homepage} />;
 
   return (
     <div className="details-page">

@@ -29,6 +29,7 @@ function BrandCard({ brandData }) {
           to={{
             pathname: links.details,
             stores: getArrayOfProps(brandData.stores, ['id', 'name', 'coords']),
+            category: brandData.buckwheatUrlPath,
           }}
         >
           <Button primary>Details</Button>
