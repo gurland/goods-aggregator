@@ -8,7 +8,7 @@ import './style.scss';
 function SuperTable({ columns, data, className }) {
   const rowsMetadata = createBodyRowsMetadata(columns, data);
   return (
-    <Table celled padded compact selectable className={className}>
+    <Table celled padded compact="very" selectable className={className}>
       <Table.Header>{createHeaderRow(columns)}</Table.Header>
       <Table.Body>{createBodyRows(columns, rowsMetadata)}</Table.Body>
     </Table>
