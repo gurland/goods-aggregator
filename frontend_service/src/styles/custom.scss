@@ -1,12 +1,16 @@
 @import 'mixins';
 
 .ui {
+  &.tab {
+    padding: 0;
+  }
+
   &.menu {
     border-radius: 0;
     margin: 0;
     box-shadow: 0 toRem(1px) toRem(10px) 0 rgba(34,36,38,.15);
     border-color: #eeeeee;
-    height: toRem(64px);
+    height: toRem($navbar-height);
     z-index: 1;
     align-items: center;
 

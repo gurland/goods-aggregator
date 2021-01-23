@@ -1,0 +1,13 @@
+@import "src/styles/mixins";
+
+.product-table-rows {
+  &__wrapper {
+    position: relative !important;
+    height: calc(100% - #{$navbar-height}) !important;
+    border: 0 !important;
+  }
+
+  &__scroll {
+    overflow: auto;
+  }
+}

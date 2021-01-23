@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Table } from 'semantic-ui-react';
 import { createBodyRows, createHeaderRow, createBodyRowsMetadata } from './helpers';
+import './style.scss';
 
 function SuperTable({ columns, data, className }) {
   const rowsMetadata = createBodyRowsMetadata(columns, data);

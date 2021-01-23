@@ -1,11 +1,16 @@
 @import "../../styles/mixins";
 
 .details-page {
-  height: 100%;
+  height: calc(100% - #{$navbar-height});
   padding: 15px 15px 0 15px;
 
   &__grid {
     height: 100%;
+
+    .row {
+      height: 100%;
+      padding-bottom: 0 !important;
+    }
 
     &--left-column {
       height: 100%;
@@ -19,6 +24,10 @@
   &__product-table {
     margin-top: 15px !important;
     height: calc(50% - 15px);
+
+    div {
+      height: 100%;
+    }
   }
 
   &__filters {
