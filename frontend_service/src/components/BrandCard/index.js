@@ -44,6 +44,7 @@ BrandCard.propTypes = {
   brandData: PropTypes.shape({
     name: PropTypes.string,
     avgPricePerKg: PropTypes.number,
+    buckwheatUrlPath: PropTypes.string,
     stores: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
