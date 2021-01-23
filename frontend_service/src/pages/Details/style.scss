@@ -12,7 +12,7 @@
       padding-bottom: 0 !important;
     }
 
-    &--left-column {
+    &--left-column, &--right-column {
       height: 100%;
     }
   }
@@ -36,6 +36,7 @@
 
   &__filters {
     height: 100%;
+    overflow-y: auto;
 
     @media #{$max1199} {
       display: none !important;
