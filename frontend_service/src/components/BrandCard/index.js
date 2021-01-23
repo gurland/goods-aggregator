@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { links } from '../../utils/constants';
+import { getArrayOfProps } from '../../utils/helpers';
 import './style.scss';
 
 function BrandCard({ brandData }) {
@@ -24,8 +25,12 @@ function BrandCard({ brandData }) {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Link to={links.details}>
-          {/* TODO change link to actual */}
+        <Link
+          to={{
+            pathname: links.details,
+            stores: getArrayOfProps(brandData.stores, ['id', 'name', 'coords']),
+          }}
+        >
           <Button primary>Details</Button>
         </Link>
         <span className="price">{brandData.avgPricePerKg + ' ₴'}</span>
