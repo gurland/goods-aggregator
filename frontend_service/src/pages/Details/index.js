@@ -16,7 +16,7 @@ function Details() {
   const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
   const [tableData, setTableData] = useState([]);
   const [tableFilters, setTableFilters] = useState([]);
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
     if (currentStoreId) {
@@ -55,7 +55,12 @@ function Details() {
             />
           </Grid.Column>
           <Grid.Column largeScreen={3} widescreen={3} className="details-page__grid--right-column">
-            <DetailsPageFilters className="details-page__filters" filters={tableFilters} />
+            <DetailsPageFilters
+              className="details-page__filters"
+              filters={tableFilters}
+              selectedFilters={selectedFilters}
+              setSelectedFilters={setSelectedFilters}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
