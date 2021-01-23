@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Menu, Input, Radio } from 'semantic-ui-react';
+import { Menu, Input, Radio, Icon } from 'semantic-ui-react';
 import './style.scss';
 
 import { MapModal } from '../index';
 
 function Navbar(props) {
   return (
-    <span>
+    <span className="navbar">
       {props.position === 'top' && (
         <Menu fluid widths={3}>
           <Menu.Item />
@@ -15,7 +16,8 @@ function Navbar(props) {
             <Input className="icon" iconPosition="left" icon="search" placeholder="Search..." />
           </Menu.Item>
           <Menu.Item position="right">
-            <Radio toggle />
+            <Radio toggle className="theme-toggle" />
+            <Icon name="bars" className="burger-menu" />
           </Menu.Item>
         </Menu>
       )}
@@ -30,6 +32,12 @@ function Navbar(props) {
   );
 }
 
-Navbar.propTypes = {};
+Navbar.propTypes = {
+  position: PropTypes.oneOf(['top', 'bottom']),
+};
+
+Navbar.deafultProps = {
+  position: 'top',
+};
 
 export default Navbar;

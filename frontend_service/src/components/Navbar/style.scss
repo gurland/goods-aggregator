@@ -1,0 +1,15 @@
+@import "../../styles/mixins";
+
+.navbar {
+  .theme-toggle {
+    margin-right: 20px;
+  }
+
+  .burger-menu {
+    font-size: 1.5rem;
+
+    @media #{$min1200} {
+      display: none;
+    }
+  }
+}
