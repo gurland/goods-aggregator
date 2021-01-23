@@ -20,10 +20,10 @@ export const createHeaderRow = (columns) => {
 };
 
 export const createBodyRows = (columns, metadata) =>
-  metadata.map((cells) => (
-    <Table.Row>
+  metadata.map((cells, index) => (
+    <Table.Row key={index}>
       {sortByArray(cells, 'key', getArrayOfProps(columns, 'selector')).map(({ cell, original, key }) => (
-        <Table.Cell key={key}>{cell(original)}</Table.Cell> // TODO generate key based on id or any other unique data from api
+        <Table.Cell key={`${original.id}_${key}`}>{cell(original)}</Table.Cell>
       ))}
     </Table.Row>
   ));
