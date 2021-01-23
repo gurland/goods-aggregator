@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Menu, Input, Radio, Button, Icon } from 'semantic-ui-react';
+import { Menu, Input, Radio, Icon } from 'semantic-ui-react';
 import './style.scss';
+
+import { MapModal } from '../index';
 
 function Navbar(props) {
   return (
@@ -21,13 +23,9 @@ function Navbar(props) {
       )}
       {props.position === 'bottom' && (
         <Menu fluid widths={3}>
-          <Menu.Item />
           <Menu.Item>
-            <Button primary basic>
-              Open map
-            </Button>
+            <MapModal />
           </Menu.Item>
-          <Menu.Menu position="right" />
         </Menu>
       )}
     </span>
