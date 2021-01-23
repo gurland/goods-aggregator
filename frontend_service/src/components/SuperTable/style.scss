@@ -3,7 +3,7 @@
 .product-table-rows {
   &__wrapper {
     position: relative !important;
-    height: calc(100% - #{$navbar-height}) !important;
+    height: calc(100% - calc(#{$navbar-height} - 24px)) !important;
     border: 0 !important;
   }
 
