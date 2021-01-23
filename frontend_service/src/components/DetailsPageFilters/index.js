@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Card, List, Checkbox } from 'semantic-ui-react';
+import { Card, List, Checkbox, Loader } from 'semantic-ui-react';
 import { capitalize } from '../../utils/helpers';
 
-function DetailsPageFilters({ className, filters, selectedFilters, setSelectedFilters }) {
+function DetailsPageFilters({ className, filters, selectedFilters, setSelectedFilters, isLoading }) {
   const handleCheck = (type, query) =>
     setSelectedFilters((prevState) => {
       const filters = prevState[type];
@@ -58,7 +58,7 @@ function DetailsPageFilters({ className, filters, selectedFilters, setSelectedFi
   return (
     <Card fluid className={className}>
       <Card.Content>
-        <List>{createFilterList(filters)}</List>
+        {isLoading ? <Loader active inline="centered" /> : <List>{createFilterList(filters)}</List>}
       </Card.Content>
     </Card>
   );
@@ -69,6 +69,7 @@ DetailsPageFilters.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
   selectedFilters: PropTypes.instanceOf(Object).isRequired,
   setSelectedFilters: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 DetailsPageFilters.defaultProps = {
