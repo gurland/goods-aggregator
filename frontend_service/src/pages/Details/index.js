@@ -18,7 +18,7 @@ function Details() {
         <Grid.Row columns={2}>
           <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">
             <PriceGraph className="details-page__price-graph" />
-            <ProductTable className="details-page__product-table" />
+            <ProductTable className="details-page__product-table" stores={stores} category={category} />
           </Grid.Column>
           <Grid.Column largeScreen={3} widescreen={3}>
             <DetailsPageFilters className="details-page__filters" />
