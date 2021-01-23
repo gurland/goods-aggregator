@@ -45,6 +45,7 @@ BrandCard.propTypes = {
     avgPricePerKg: PropTypes.number,
     stores: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.string,
         name: PropTypes.string,
         city: PropTypes.string,
         coords: PropTypes.string,
