@@ -11,7 +11,7 @@ export const createHeaderRow = (columns) => {
 
         if (header instanceof Function) headerContent = header();
         else if (typeof header === 'string') headerContent = header;
-        else headerContent = '-';
+        else headerContent = '';
 
         return <Table.HeaderCell key={selector}>{headerContent}</Table.HeaderCell>;
       })}
