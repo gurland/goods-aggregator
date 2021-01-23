@@ -8,7 +8,7 @@ export const productsColumns = [
     },
   },
   {
-    header: 'Назва товару',
+    header: 'Name',
     selector: 'title',
     cell: (original) => original.title,
   },
@@ -18,12 +18,12 @@ export const productsColumns = [
     cell: (original) => original.description || '-',
   },
   {
-    header: 'Вага',
+    header: 'Weight',
     selector: 'weight',
     cell: (original) => original.weight,
   },
   {
-    header: 'Ціна',
+    header: 'Price',
     selector: 'price',
     cell: (original) => original.price,
   },
