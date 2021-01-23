@@ -2,6 +2,7 @@ export const retailChainsMock = [
   {
     name: 'Novus',
     avgPricePerKg: 25.44,
+    buckwheatUrlPath: 'buckwheat',
     stores: [
       {
         id: '482010105',
@@ -29,6 +30,7 @@ export const retailChainsMock = [
   {
     name: 'Metro',
     avgPricePerKg: 40,
+    buckwheatUrlPath: 'buckwheat-metro',
     stores: [
       {
         id: '48215611',
@@ -56,6 +58,7 @@ export const retailChainsMock = [
   {
     name: 'Auchan',
     avgPricePerKg: 23.44,
+    buckwheatUrlPath: 'buckwheat-auchan',
     stores: [
       {
         id: '48246401',
