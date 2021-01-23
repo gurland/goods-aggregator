@@ -1,3 +1,5 @@
+import { pick } from 'ramda';
+
 export const sortByArray = (original = [], prop, sortBy = []) => {
   const sorted = [];
 
@@ -11,4 +13,7 @@ export const sortByArray = (original = [], prop, sortBy = []) => {
   return sorted;
 };
 
-export const getArrayOfProps = (arrayOfObjects, prop) => arrayOfObjects.map((object) => object[prop]);
+export const getArrayOfProps = (arrayOfObjects, prop) => {
+  if (typeof prop === 'string') return arrayOfObjects.map((object) => object[prop]);
+  if (Array.isArray(prop)) return arrayOfObjects.map((object) => pick(prop, object));
+};
