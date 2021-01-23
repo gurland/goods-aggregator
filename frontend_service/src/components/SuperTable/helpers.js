@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 
-import { sortByArray, getArrayOfProps } from '../../utils/helpers';
+import { sortByArray, getArrayOfProps, removeNil } from '../../utils/helpers';
 
 export const createHeaderRow = (columns) => {
   return (
@@ -31,8 +31,12 @@ export const createBodyRows = (columns, metadata) =>
 export const createBodyRowsMetadata = (columns, data) =>
   data.map((original) => {
     const keys = Object.keys(original);
-    return keys.map((key) => {
-      const { cell } = columns.find(({ selector }) => selector === key);
-      return { cell, original, key };
-    });
+    return removeNil(
+      keys.map((key) => {
+        const column = columns.find(({ selector }) => selector === key);
+        if (column) {
+          return { cell: column.cell, original, key };
+        }
+      }),
+    );
   });
