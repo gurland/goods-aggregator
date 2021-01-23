@@ -97,3 +97,5 @@ export const links = {
   homepage: '/',
   details: '/details',
 };
+
+export const storeApiUrl = 'https://stores-api.zakaz.ua/stores/{STORE_ID}/categories/{CATEGORY}/products';
