@@ -60,6 +60,7 @@ function Details() {
               filters={state.filters}
               selectedFilters={selectedFilters}
               setSelectedFilters={setSelectedFilters}
+              isLoading={productsLoading}
             />
           </Grid.Column>
         </Grid.Row>
