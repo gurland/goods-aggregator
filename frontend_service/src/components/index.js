@@ -1,4 +1,5 @@
 import Navbar from './Navbar';
 import BrandCard from './BrandCard';
+import MapModal from './MapModal';
 
-export { Navbar, BrandCard };
+export { Navbar, BrandCard, MapModal };
