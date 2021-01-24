@@ -6,7 +6,10 @@ import { ProductTable, PriceGraph, DetailsPageFilters, Sidebar } from '../../com
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import { getProducts } from '../../utils/api';
+import { useWindowSize } from '../../utils/hooks';
 import './style.scss';
+
+const SHOW_SIDEBAR_WIDTH = 1200;
 
 function Details() {
   const { stores = [], category } = useLocation();
@@ -16,6 +19,8 @@ function Details() {
   const [productsLoading, setProductsLoading] = useState(true);
   const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
   const [tableData, setTableData] = useState([]);
+
+  const [width] = useWindowSize();
 
   useEffect(() => {
     if (currentStoreId) {
@@ -66,23 +71,23 @@ function Details() {
 
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
 
-  return (
-    <Sidebar>
-      <div className="details-page">
-        <Grid centered className="details-page__grid">
-          <Grid.Row columns={2}>
-            <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">
-              {graph}
-              {productTable}
-            </Grid.Column>
-            <Grid.Column largeScreen={3} widescreen={3} className="details-page__grid--right-column">
-              {detailsPageFilters}
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
-    </Sidebar>
+  const createDetailsPage = (withSidebar = false) => (
+    <div className={`details-page ${withSidebar ? 'with-sidebar' : ''}`}>
+      <Grid centered className="details-page__grid">
+        <Grid.Row columns={2}>
+          <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">
+            {graph}
+            {productTable}
+          </Grid.Column>
+          <Grid.Column largeScreen={3} widescreen={3} className="details-page__grid--right-column">
+            {detailsPageFilters}
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </div>
   );
+
+  return width <= SHOW_SIDEBAR_WIDTH ? <Sidebar>{createDetailsPage(true)}</Sidebar> : createDetailsPage();
 }
 
 export default Details;
