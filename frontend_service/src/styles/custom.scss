@@ -1,5 +1,9 @@
 @import 'mixins';
 
+.pusher {
+  height: 100%;
+}
+
 .ui {
   &.tab {
     padding: 0;

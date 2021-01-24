@@ -1,7 +1,7 @@
 @import "../../styles/mixins";
 
 .details-page {
-  height: calc(100% - #{$navbar-height});
+  height: 100%;
   padding: 15px 15px 0 15px;
 
   &__grid {
