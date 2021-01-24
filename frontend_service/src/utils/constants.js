@@ -99,3 +99,7 @@ export const links = {
 };
 
 export const storeApiUrl = 'https://stores-api.zakaz.ua/stores/{STORE_ID}/categories/{CATEGORY}/products';
+
+export const defaultContentLanguage = 'uk';
+
+export const languageLSKey = 'contentLanguage';

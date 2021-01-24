@@ -1,10 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 import actions from './actions';
 
+import { defaultContentLanguage } from '../constants';
+
 const initialStore = {
   filters: [],
   selectedFilters: {},
   sidebarVisible: false,
+  contentLanguage: defaultContentLanguage,
 };
 export const store = createContext(initialStore);
 
@@ -27,6 +30,11 @@ function StoreProvider({ children }) {
         return {
           ...state,
           sidebarVisible: action.payload,
+        };
+      case actions.SET_CONTENT_LANGUAGE:
+        return {
+          ...state,
+          contentLanguage: action.payload,
         };
       default:
         return state;
