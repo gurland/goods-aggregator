@@ -79,12 +79,12 @@ DetailsPageFilters.propTypes = {
   className: PropTypes.string,
   filters: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
   selectedFilters: PropTypes.instanceOf(Object).isRequired,
-  setSelectedFilters: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 DetailsPageFilters.defaultProps = {
   className: '',
+  isLoading: false,
 };
 
 export default DetailsPageFilters;
