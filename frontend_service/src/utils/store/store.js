@@ -1,14 +1,14 @@
 import React, { createContext, useReducer } from 'react';
 import actions from './actions';
 
-import { getLanguageFromLS } from '../helpers';
+import { getLanguageFromLS, getDarkThemeFromLS } from '../helpers';
 
 const initialStore = {
   filters: [],
   selectedFilters: {},
   sidebarVisible: false,
   contentLanguage: getLanguageFromLS(),
-  darkTheme: false,
+  darkTheme: getDarkThemeFromLS(),
 };
 export const store = createContext(initialStore);
 
