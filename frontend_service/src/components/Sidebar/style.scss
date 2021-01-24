@@ -1,0 +1,10 @@
+@import "../../styles/mixins";
+
+.sidebar__filters {
+  height: 100%;
+  overflow-y: auto;
+
+  .content {
+    padding: toRem(20px) !important;
+  }
+}
