@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { Menu, Input, Radio, Icon } from 'semantic-ui-react';
+import { Menu, Input, Icon, Popup } from 'semantic-ui-react';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import './style.scss';
 
-import { MapModal } from '../index';
+import { MapModal, Settings } from '../index';
 
 function Navbar(props) {
   const { dispatch, state } = useContext(store);
@@ -28,7 +28,13 @@ function Navbar(props) {
             <Input className="icon" iconPosition="left" icon="search" placeholder="Search..." />
           </Menu.Item>
           <Menu.Item position="right">
-            <Radio toggle className="theme-toggle" />
+            <Popup
+              pinned
+              on="click"
+              content={<Settings />}
+              trigger={<Icon name="setting" className="navbar-icon" />}
+              position="bottom right"
+            />
             {showIcons && <Icon name="bars" className="navbar-icon burger-menu" onClick={toggleSidebar} />}
           </Menu.Item>
         </Menu>

@@ -6,5 +6,6 @@ import SuperTable from './SuperTable';
 import PriceGraph from './PriceGraph';
 import DetailsPageFilters from './DetailsPageFilters';
 import Sidebar from './Sidebar';
+import Settings from './Settings';
 
-export { Navbar, MapModal, BrandCard, ProductTable, SuperTable, PriceGraph, DetailsPageFilters, Sidebar };
+export { Navbar, MapModal, BrandCard, ProductTable, SuperTable, PriceGraph, DetailsPageFilters, Sidebar, Settings };
