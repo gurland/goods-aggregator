@@ -8,6 +8,8 @@ import { BrandCard, Navbar } from '../../components';
 
 function Homepage() {
   const [retailChains, setRetailChains] = useState([]);
+
+  // TODO add content updating according to language change
   useEffect(() => {
     setTimeout(() => {
       setRetailChains(retailChainsMock);
