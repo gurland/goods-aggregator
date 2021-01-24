@@ -3,7 +3,7 @@ import { pick } from 'ramda';
 import qs from 'qs';
 
 import { storeApiUrl } from './constants';
-import { getContentLanguage } from './helpers';
+import { getLanguageFromLS } from './helpers';
 
 const createUrl = (storeId, category) => storeApiUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
 
@@ -22,9 +22,9 @@ const createGetRequest = async (url, { params = {}, errorResponse, headers = {} 
   }
 };
 
-export const getProducts = async (storeId, category, filters = {}) => {
+export const getProducts = async (storeId, category, filters = {}, language) => {
   const url = createUrl(storeId, category);
-  const contentLanguage = getContentLanguage();
+  const contentLanguage = language || getLanguageFromLS();
 
   return await createGetRequest(url, {
     params: filters,

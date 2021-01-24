@@ -1,13 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 import actions from './actions';
 
-import { getContentLanguage } from '../helpers';
+import { getLanguageFromLS } from '../helpers';
 
 const initialStore = {
   filters: [],
   selectedFilters: {},
   sidebarVisible: false,
-  contentLanguage: getContentLanguage(),
+  contentLanguage: getLanguageFromLS(),
 };
 export const store = createContext(initialStore);
 
