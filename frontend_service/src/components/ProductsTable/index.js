@@ -53,12 +53,13 @@ ProductTable.propTypes = {
   ).isRequired,
   isLoading: PropTypes.bool.isRequired,
   tableData: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
-  currentStoreId: PropTypes.string.isRequired,
+  currentStoreId: PropTypes.string,
   setCurrentStoreId: PropTypes.func.isRequired,
 };
 
 ProductTable.defaultProps = {
   className: '',
+  currentStoreId: null,
 };
 
 export default ProductTable;
