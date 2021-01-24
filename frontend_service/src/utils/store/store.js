@@ -4,6 +4,7 @@ import actions from './actions';
 const initialStore = {
   filters: [],
   selectedFilters: {},
+  sidebarVisible: false,
 };
 export const store = createContext(initialStore);
 
@@ -21,6 +22,11 @@ function StoreProvider({ children }) {
         return {
           ...state,
           selectedFilters: action.payload,
+        };
+      case actions.SIDEBAR_TOGGLE:
+        return {
+          ...state,
+          sidebarVisible: action.payload,
         };
       default:
         return state;
