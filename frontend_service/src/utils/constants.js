@@ -103,3 +103,5 @@ export const storeApiUrl = 'https://stores-api.zakaz.ua/stores/{STORE_ID}/catego
 export const defaultContentLanguage = 'uk';
 
 export const languageLSKey = 'contentLanguage';
+
+export const darkThemeLSKey = 'darkTheme';

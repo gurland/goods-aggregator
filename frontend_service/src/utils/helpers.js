@@ -1,5 +1,5 @@
 import { pick, isNil } from 'ramda';
-import { defaultContentLanguage, languageLSKey } from './constants';
+import { defaultContentLanguage, languageLSKey, darkThemeLSKey } from './constants';
 
 export const sortByArray = (original = [], prop, sortBy = []) => {
   const sorted = [];
@@ -23,6 +23,10 @@ export const removeNil = (array) => array.filter((element) => !isNil(element));
 
 export const capitalize = (string = '') => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const getLanguageFromLS = () => localStorage.getItem(languageLSKey) || defaultContentLanguage;
+export const getItemFromLS = (key, defaultValue = null) => localStorage.getItem(key) || defaultValue;
+
+export const getLanguageFromLS = () => getItemFromLS(languageLSKey, defaultContentLanguage);
+
+export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, false));
 
 export const createDarkThemeClassName = (className, isDarkTheme) => `${className} ${isDarkTheme ? 'inverted' : ''}`;

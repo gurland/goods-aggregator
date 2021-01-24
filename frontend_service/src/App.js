@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { Navbar } from './components';
 import { Homepage, Details } from './pages';
-import { links, languageLSKey } from './utils/constants';
+import { links, languageLSKey, darkThemeLSKey } from './utils/constants';
 import { store } from './utils/store';
 
 function App() {
@@ -14,6 +14,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem(languageLSKey, state.contentLanguage);
   }, [state.contentLanguage]);
+
+  useEffect(() => {
+    localStorage.setItem(darkThemeLSKey, state.darkTheme);
+  }, [state.darkTheme]);
 
   return (
     <Router>
