@@ -5,12 +5,18 @@
     margin-right: 20px;
   }
 
-  .burger-menu {
+  .navbar-icon {
     font-size: 1.5rem;
     cursor: pointer;
+  }
 
+  .burger-menu {
     @media #{$min1200} {
       display: none;
     }
+  }
+
+  .arrow-icon {
+    margin: 0 auto 0 30px !important;
   }
 }
