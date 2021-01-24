@@ -32,7 +32,7 @@ function Navbar(props) {
               pinned
               on="click"
               content={<Settings />}
-              trigger={<Icon name="setting" className="navbar-icon" />}
+              trigger={<Icon name="setting" className="navbar-icon settings-icon" />}
               position="bottom right"
             />
             {showIcons && <Icon name="bars" className="navbar-icon burger-menu" onClick={toggleSidebar} />}
