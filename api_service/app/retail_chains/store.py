@@ -45,7 +45,7 @@ class Store:
             if response.status == 200:
                 products_json = await response.json()
                 if products_json.get("results"):
-                    product = products_json.get("results")[0]
+                    product = self.reduce_products_info(products_json.get("results", []))
 
         return {
             "id": self.store_id,
