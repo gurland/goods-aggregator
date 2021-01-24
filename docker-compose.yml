@@ -11,7 +11,12 @@ services:
     
     depends_on:
       - frontend
+      - api
 
   frontend:
     build: ./frontend_service/
+
+  api:
+    build: ./api_service/
+
 
