@@ -24,3 +24,5 @@ export const removeNil = (array) => array.filter((element) => !isNil(element));
 export const capitalize = (string = '') => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const getLanguageFromLS = () => localStorage.getItem(languageLSKey) || defaultContentLanguage;
+
+export const createDarkThemeClassName = (className, isDarkTheme) => `${className} ${isDarkTheme ? 'inverted' : ''}`;

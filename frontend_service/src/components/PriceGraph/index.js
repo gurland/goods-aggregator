@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { Card } from 'semantic-ui-react';
 import ReactEcharts from 'echarts-for-react';
 import './style.scss';
+import { store } from '../../utils/store';
+import { createDarkThemeClassName } from '../../utils/helpers';
 
 function PriceGraph({ className }) {
+  const { state } = useContext(store);
   const timeData = [];
 
   for (let i = 1; i <= 30; i++) {
@@ -70,7 +73,7 @@ function PriceGraph({ className }) {
   }
 
   return (
-    <Card fluid className={className}>
+    <Card fluid className={createDarkThemeClassName(className, state.darkTheme)}>
       <Card.Content>
         <ReactEcharts option={getOption()} />
       </Card.Content>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Grid, Header, Radio, Dropdown } from 'semantic-ui-react';
 
 import { store, actions } from '../../utils/store';
+import { createDarkThemeClassName } from '../../utils/helpers';
 
 import './style.scss';
 
@@ -39,6 +40,7 @@ function Settings() {
             options={languages}
             value={state.contentLanguage}
             onChange={onLanguageSelect}
+            className={createDarkThemeClassName('', state.darkTheme)}
           />
         </Grid.Row>
       </Grid.Column>

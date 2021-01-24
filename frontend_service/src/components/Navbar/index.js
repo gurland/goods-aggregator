@@ -20,7 +20,7 @@ function Navbar(props) {
   return (
     <span className="navbar">
       {props.position === 'top' && (
-        <Menu fluid widths={3}>
+        <Menu fluid widths={3} inverted={state.darkTheme}>
           <Menu.Item>
             {showIcons && <Icon name="arrow left" className="navbar-icon arrow-icon" onClick={goToHomepage} />}
           </Menu.Item>
@@ -34,13 +34,14 @@ function Navbar(props) {
               content={<Settings />}
               trigger={<Icon name="setting" className="navbar-icon settings-icon" />}
               position="bottom right"
+              inverted={state.darkTheme}
             />
             {showIcons && <Icon name="bars" className="navbar-icon burger-menu" onClick={toggleSidebar} />}
           </Menu.Item>
         </Menu>
       )}
       {props.position === 'bottom' && (
-        <Menu fluid widths={1}>
+        <Menu fluid widths={1} inverted={state.darkTheme}>
           <Menu.Item>
             <MapModal />
           </Menu.Item>

@@ -1,13 +1,18 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Tab } from 'semantic-ui-react';
 
 import SuperTable from '../SuperTable';
 import { productsColumns } from './constants';
+import { createDarkThemeClassName } from '../../utils/helpers';
 
 import './style.scss';
+import { store } from '../../utils/store';
 
 function ProductTable({ className, stores, isLoading, tableData, currentStoreId, setCurrentStoreId }) {
+  const { state } = useContext(store);
+  const isDarkTheme = state.darkTheme;
+
   const handleTabChange = useCallback((event, { activeIndex, panes }) => setCurrentStoreId(panes[activeIndex].id), [
     setCurrentStoreId,
   ]);
@@ -27,16 +32,19 @@ function ProductTable({ className, stores, isLoading, tableData, currentStoreId,
         menuItem: store.name,
         id: store.id,
         render: () => (
-          <Tab.Pane className="product-table-rows__wrapper" loading={isLoading && store.id === currentStoreId}>
+          <Tab.Pane
+            className={createDarkThemeClassName('product-table-rows__wrapper', isDarkTheme)}
+            loading={isLoading && store.id === currentStoreId}
+          >
             {table}
           </Tab.Pane>
         ),
       })),
-    [isLoading, stores, currentStoreId, table],
+    [stores, isDarkTheme, isLoading, currentStoreId, table],
   );
 
   return (
-    <Card fluid className={className}>
+    <Card fluid className={createDarkThemeClassName(className, isDarkTheme)}>
       <Tab panes={panes} menu={{ tabular: true, secondary: true, pointing: true }} onTabChange={handleTabChange} />
     </Card>
   );
