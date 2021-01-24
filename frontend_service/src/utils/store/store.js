@@ -8,6 +8,7 @@ const initialStore = {
   selectedFilters: {},
   sidebarVisible: false,
   contentLanguage: getLanguageFromLS(),
+  darkTheme: false,
 };
 export const store = createContext(initialStore);
 
@@ -32,6 +33,11 @@ function StoreProvider({ children }) {
           sidebarVisible: action.payload,
         };
       case actions.SET_CONTENT_LANGUAGE:
+        return {
+          ...state,
+          contentLanguage: action.payload,
+        };
+      case actions.DARK_THEME_TOGGLE:
         return {
           ...state,
           contentLanguage: action.payload,
