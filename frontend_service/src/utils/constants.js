@@ -98,7 +98,7 @@ export const links = {
   details: '/details',
 };
 
-export const storeApiUrl = 'https://stores-api.zakaz.ua/stores/{STORE_ID}/categories/{CATEGORY}/products';
+export const storeApiUrl = '/stores/{STORE_ID}/categories/{CATEGORY}/products';
 
 export const defaultContentLanguage = 'uk';
 
