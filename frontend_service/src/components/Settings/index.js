@@ -3,6 +3,8 @@ import { Grid, Header, Radio, Dropdown } from 'semantic-ui-react';
 
 import { store, actions } from '../../utils/store';
 
+import './style.scss';
+
 const languages = [
   {
     key: 'uk',
