@@ -40,7 +40,7 @@ function StoreProvider({ children }) {
       case actions.DARK_THEME_TOGGLE:
         return {
           ...state,
-          contentLanguage: action.payload,
+          darkTheme: action.payload,
         };
       default:
         return state;
