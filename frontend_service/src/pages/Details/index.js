@@ -17,11 +17,6 @@ function Details() {
   const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
   const [tableData, setTableData] = useState([]);
 
-  const setSelectedFilters = useCallback(
-    (newFilters) => dispatch({ type: actions.SELECT_FILTERS, payload: newFilters }),
-    [dispatch],
-  );
-
   useEffect(() => {
     if (currentStoreId) {
       setProductsLoading(true);
@@ -63,11 +58,10 @@ function Details() {
         className="details-page__filters"
         filters={state.filters}
         selectedFilters={state.selectedFilters}
-        setSelectedFilters={setSelectedFilters}
         isLoading={false} // TODO find a better solution to show preloader
       />
     ),
-    [state.filters, state.selectedFilters, setSelectedFilters],
+    [state.filters, state.selectedFilters],
   );
 
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
