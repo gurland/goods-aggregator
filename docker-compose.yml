@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx_service/
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+       - /etc/letsencrypt/live/grechka.tech/:/etc/nginx/certs/
+    
+    depends_on:
+      - frontend
+
+  frontend:
+    build: ./frontend_service/
+
