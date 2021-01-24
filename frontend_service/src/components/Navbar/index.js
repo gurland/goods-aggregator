@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
 import { Menu, Input, Radio, Icon } from 'semantic-ui-react';
 import { links } from '../../utils/constants';
+import { store, actions } from '../../utils/store';
 import './style.scss';
 
 import { MapModal } from '../index';
 
 function Navbar(props) {
+  const { dispatch, state } = useContext(store);
+
   const showBurger = useLocation().pathname === links.details;
+  const toggleSidebar = () => dispatch({ type: actions.SIDEBAR_TOGGLE, payload: !state.sidebarVisible });
 
   return (
     <span className="navbar">
@@ -21,7 +25,7 @@ function Navbar(props) {
           </Menu.Item>
           <Menu.Item position="right">
             <Radio toggle className="theme-toggle" />
-            {showBurger && <Icon name="bars" className="burger-menu" />}
+            {showBurger && <Icon name="bars" className="burger-menu" onClick={toggleSidebar} />}
           </Menu.Item>
         </Menu>
       )}
