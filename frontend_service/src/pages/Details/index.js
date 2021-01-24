@@ -26,7 +26,7 @@ function Details() {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const { data } = await getProducts(currentStoreId, category, state.selectedFilters);
+        const { data } = await getProducts(currentStoreId, category, state.selectedFilters, state.contentLanguage);
         const { results, filters } = data;
         if (results?.length) {
           setTableData(results);
@@ -39,7 +39,7 @@ function Details() {
         setProductsLoading(false);
       })();
     }
-  }, [currentStoreId, category, state.selectedFilters, dispatch]);
+  }, [currentStoreId, category, state.selectedFilters, dispatch, state.contentLanguage]);
 
   const graph = useMemo(() => <PriceGraph className="details-page__price-graph" />, []);
 
