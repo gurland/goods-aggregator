@@ -3,6 +3,7 @@ import actions from './actions';
 
 const initialStore = {
   filters: [],
+  selectedFilters: {},
 };
 export const store = createContext(initialStore);
 
@@ -15,6 +16,11 @@ function StoreProvider({ children }) {
         return {
           ...state,
           filters: action.payload,
+        };
+      case actions.SELECT_FILTERS:
+        return {
+          ...state,
+          selectedFilters: action.payload,
         };
       default:
         return state;

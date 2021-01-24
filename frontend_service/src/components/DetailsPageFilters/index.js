@@ -5,29 +5,32 @@ import { Card, List, Checkbox, Loader } from 'semantic-ui-react';
 import { capitalize } from '../../utils/helpers';
 
 function DetailsPageFilters({ className, filters, selectedFilters, setSelectedFilters, isLoading }) {
-  const handleCheck = (type, query) =>
-    setSelectedFilters((prevState) => {
-      const filters = prevState[type];
+  const handleCheck = (type, query) => {
+    const prevState = selectedFilters;
+    const filters = prevState[type];
+    let newFilters;
 
-      if (!filters) {
-        return {
-          ...prevState,
-          [type]: [query],
-        };
-      }
-
+    if (!filters) {
+      newFilters = {
+        ...prevState,
+        [type]: [query],
+      };
+    } else {
       if (filters.includes(query)) {
-        return {
+        newFilters = {
           ...prevState,
           [type]: filters.filter((existingQuery) => query !== existingQuery),
         };
       } else {
-        return {
+        newFilters = {
           ...prevState,
           [type]: [...filters, query],
         };
       }
-    });
+    }
+
+    setSelectedFilters(newFilters);
+  };
 
   const createFilterList = (filters) =>
     filters.map((filter) => {

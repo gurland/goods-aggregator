@@ -16,13 +16,14 @@ function Details() {
   const [productsLoading, setProductsLoading] = useState(true);
   const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
   const [tableData, setTableData] = useState([]);
-  const [selectedFilters, setSelectedFilters] = useState({});
+
+  const setSelectedFilters = (newFilters) => dispatch({ type: actions.SELECT_FILTERS, payload: newFilters });
 
   useEffect(() => {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const { data } = await getProducts(currentStoreId, category, selectedFilters);
+        const { data } = await getProducts(currentStoreId, category, state.selectedFilters);
         const { results, filters } = data;
         if (results?.length) {
           setTableData(results);
@@ -35,7 +36,7 @@ function Details() {
         setProductsLoading(false);
       })();
     }
-  }, [currentStoreId, category, selectedFilters, dispatch]);
+  }, [currentStoreId, category, state.selectedFilters, dispatch]);
 
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
 
@@ -58,9 +59,9 @@ function Details() {
             <DetailsPageFilters
               className="details-page__filters"
               filters={state.filters}
-              selectedFilters={selectedFilters}
+              selectedFilters={state.selectedFilters}
               setSelectedFilters={setSelectedFilters}
-              isLoading={productsLoading}
+              isLoading={false} // TODO find a better solution to show preloader
             />
           </Grid.Column>
         </Grid.Row>
