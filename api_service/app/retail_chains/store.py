@@ -44,8 +44,7 @@ class Store:
         async with session.get(request_url) as response:
             if response.status == 200:
                 products_json = await response.json()
-                if products_json.get("results"):
-                    product = self.reduce_products_info(products_json.get("results", []))
+                product = self.reduce_products_info(products_json.get("results", []))
 
         return {
             "id": self.store_id,
