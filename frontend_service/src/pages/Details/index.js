@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
-import { ProductTable, PriceGraph, DetailsPageFilters } from '../../components';
+import { ProductTable, PriceGraph, DetailsPageFilters, Sidebar } from '../../components';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import { getProducts } from '../../utils/api';
@@ -67,19 +67,21 @@ function Details() {
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
 
   return (
-    <div className="details-page">
-      <Grid centered className="details-page__grid">
-        <Grid.Row columns={2}>
-          <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">
-            {graph}
-            {productTable}
-          </Grid.Column>
-          <Grid.Column largeScreen={3} widescreen={3} className="details-page__grid--right-column">
-            {detailsPageFilters}
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </div>
+    <Sidebar>
+      <div className="details-page">
+        <Grid centered className="details-page__grid">
+          <Grid.Row columns={2}>
+            <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">
+              {graph}
+              {productTable}
+            </Grid.Column>
+            <Grid.Column largeScreen={3} widescreen={3} className="details-page__grid--right-column">
+              {detailsPageFilters}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    </Sidebar>
   );
 }
 
