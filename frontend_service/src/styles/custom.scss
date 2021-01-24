@@ -4,9 +4,23 @@
   height: 100%;
 }
 
+.inverted {
+  //border: 0 solid transparent;
+  background: #1b1c1d;
+  box-shadow: none;
+  color: rgba(255,255,255,.9);
+}
+
 .ui {
   &.tab {
     padding: 0;
+  }
+
+  &.inverted {
+    //border: 0 solid transparent;
+    background: #1b1c1d;
+    box-shadow: none;
+    color: rgba(255,255,255,.9);
   }
 
   &.menu {
