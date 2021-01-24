@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo, useCallback } from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
@@ -17,7 +17,10 @@ function Details() {
   const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
   const [tableData, setTableData] = useState([]);
 
-  const setSelectedFilters = (newFilters) => dispatch({ type: actions.SELECT_FILTERS, payload: newFilters });
+  const setSelectedFilters = useCallback(
+    (newFilters) => dispatch({ type: actions.SELECT_FILTERS, payload: newFilters }),
+    [dispatch],
+  );
 
   useEffect(() => {
     if (currentStoreId) {
@@ -38,6 +41,35 @@ function Details() {
     }
   }, [currentStoreId, category, state.selectedFilters, dispatch]);
 
+  const graph = useMemo(() => <PriceGraph className="details-page__price-graph" />, []);
+
+  const productTable = useMemo(
+    () => (
+      <ProductTable
+        className="details-page__product-table"
+        stores={stores}
+        isLoading={productsLoading}
+        tableData={tableData}
+        currentStoreId={currentStoreId}
+        setCurrentStoreId={setCurrentStoreId}
+      />
+    ),
+    [stores, productsLoading, tableData, currentStoreId, setCurrentStoreId],
+  );
+
+  const detailsPageFilters = useMemo(
+    () => (
+      <DetailsPageFilters
+        className="details-page__filters"
+        filters={state.filters}
+        selectedFilters={state.selectedFilters}
+        setSelectedFilters={setSelectedFilters}
+        isLoading={false} // TODO find a better solution to show preloader
+      />
+    ),
+    [state.filters, state.selectedFilters, setSelectedFilters],
+  );
+
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
 
   return (
@@ -45,24 +77,11 @@ function Details() {
       <Grid centered className="details-page__grid">
         <Grid.Row columns={2}>
           <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">
-            <PriceGraph className="details-page__price-graph" />
-            <ProductTable
-              className="details-page__product-table"
-              stores={stores}
-              isLoading={productsLoading}
-              tableData={tableData}
-              currentStoreId={currentStoreId}
-              setCurrentStoreId={setCurrentStoreId}
-            />
+            {graph}
+            {productTable}
           </Grid.Column>
           <Grid.Column largeScreen={3} widescreen={3} className="details-page__grid--right-column">
-            <DetailsPageFilters
-              className="details-page__filters"
-              filters={state.filters}
-              selectedFilters={state.selectedFilters}
-              setSelectedFilters={setSelectedFilters}
-              isLoading={false} // TODO find a better solution to show preloader
-            />
+            {detailsPageFilters}
           </Grid.Column>
         </Grid.Row>
       </Grid>
