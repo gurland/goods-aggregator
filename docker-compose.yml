@@ -7,7 +7,7 @@ services:
       - "443:443"
 
     volumes:
-       - /etc/letsencrypt/live/grechka.tech/:/etc/nginx/certs/
+       - /etc/letsencrypt/archive/grechka.tech/:/etc/nginx/certs/
     
     depends_on:
       - frontend
