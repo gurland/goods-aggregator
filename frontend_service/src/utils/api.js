@@ -3,16 +3,18 @@ import { pick } from 'ramda';
 import qs from 'qs';
 
 import { storeApiUrl } from './constants';
+import { getContentLanguage } from './helpers';
 
 const createUrl = (storeId, category) => storeApiUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
 
-const createGetRequest = async (url, { params = {}, errorResponse }) => {
+const createGetRequest = async (url, { params = {}, errorResponse, headers = {} }) => {
   try {
     const response = await axios.get(url, {
       params,
       paramsSerializer: (params) => {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },
+      headers,
     });
     return pick(['data', 'status'], response);
   } catch (e) {
@@ -22,5 +24,10 @@ const createGetRequest = async (url, { params = {}, errorResponse }) => {
 
 export const getProducts = async (storeId, category, filters = {}) => {
   const url = createUrl(storeId, category);
-  return await createGetRequest(url, { errorResponse: [], params: filters });
+  const contentLanguage = getContentLanguage();
+
+  return await createGetRequest(url, {
+    params: filters,
+    headers: { 'Accept-Language': contentLanguage },
+  });
 };
