@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { Menu, Input, Icon, Popup } from 'semantic-ui-react';
+import { Menu, Input, Icon, Popup, Form } from 'semantic-ui-react';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import './style.scss';
@@ -25,7 +25,16 @@ function Navbar(props) {
             {showIcons && <Icon name="arrow left" className="navbar-icon arrow-icon" onClick={goToHomepage} />}
           </Menu.Item>
           <Menu.Item>
-            <Input className="icon" iconPosition="left" icon="search" placeholder="Search..." />
+            <Form>
+              <Form.Field>
+                <Input
+                  className="icon"
+                  iconPosition="right"
+                  icon={<Icon name="search" link circular />}
+                  placeholder="Search..."
+                />
+              </Form.Field>
+            </Form>
           </Menu.Item>
           <Menu.Item position="right">
             <Popup
