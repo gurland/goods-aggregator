@@ -12,15 +12,36 @@ import './style.scss';
 const SHOW_SIDEBAR_WIDTH = 1200;
 
 function Details() {
-  const { stores = [], category } = useLocation();
-  const [firstStore] = stores;
+  const { retailChain, category } = useLocation();
   const { state, dispatch } = useContext(store);
 
   const [productsLoading, setProductsLoading] = useState(true);
-  const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
+  const [storesLoading, setStoresLoading] = useState(true);
+
+  const [currentStoreId, setCurrentStoreId] = useState();
   const [tableData, setTableData] = useState([]);
+  const [stores, setStores] = useState([]);
 
   const [width] = useWindowSize();
+
+  useEffect(() => {
+    if (retailChain) {
+      setStoresLoading(true);
+
+      (async () => {
+        const { data, status } = await searchProducts({}, state.contentLanguage);
+        if (status === 200 && data) {
+          const currentRetailChain = data.find(({ name }) => name === retailChain);
+          const [firstStore] = currentRetailChain.stores;
+
+          setCurrentStoreId(firstStore.id);
+          setStores(currentRetailChain.stores);
+
+          setStoresLoading(false);
+        }
+      })();
+    }
+  }, [retailChain, state.contentLanguage]);
 
   useEffect(() => {
     if (currentStoreId) {
@@ -28,7 +49,7 @@ function Details() {
       (async () => {
         const { data, status } = category
           ? await getProducts(currentStoreId, category, state.selectedFilters, state.contentLanguage)
-          : await searchProducts(state.selectedFilters, state.contentLanguage);
+          : await searchProducts(state.selectedFilters, state.contentLanguage); // TODO add q=
         if (!data || status !== 200) return;
 
         const { results, filters } = data;
@@ -52,13 +73,13 @@ function Details() {
       <ProductTable
         className="details-page__product-table"
         stores={stores}
-        isLoading={productsLoading}
+        isLoading={productsLoading || storesLoading}
         tableData={tableData}
         currentStoreId={currentStoreId}
         setCurrentStoreId={setCurrentStoreId}
       />
     ),
-    [stores, productsLoading, tableData, currentStoreId, setCurrentStoreId],
+    [stores, productsLoading, storesLoading, tableData, currentStoreId],
   );
 
   const detailsPageFilters = useMemo(
@@ -73,7 +94,7 @@ function Details() {
     [state.filters, state.selectedFilters],
   );
 
-  if (!firstStore) return <Redirect to={links.homepage} />;
+  if (!retailChain) return <Redirect to={links.homepage} />;
 
   const createDetailsPage = (withSidebar = false) => (
     <div className={`details-page ${withSidebar ? 'with-sidebar' : ''}`}>
