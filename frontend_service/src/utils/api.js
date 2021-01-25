@@ -2,10 +2,13 @@ import axios from 'axios';
 import { pick } from 'ramda';
 import qs from 'qs';
 
-import { storeApiUrl } from './constants';
+import { storeListUrl, storeSearchUrl } from './constants';
 import { getLanguageFromLS } from './helpers';
 
-const createUrl = (storeId, category) => storeApiUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
+const createUrl = (storeId = null, category = null) => {
+  if (!(category && storeId)) return storeSearchUrl;
+  return storeListUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
+};
 
 const createGetRequest = async (url, { params = {}, errorResponse, headers = {} }) => {
   try {
