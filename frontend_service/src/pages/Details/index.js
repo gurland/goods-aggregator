@@ -12,15 +12,15 @@ import './style.scss';
 const SHOW_SIDEBAR_WIDTH = 1200;
 
 function Details() {
-  const { retailChain, category } = useLocation();
+  const { stores: storesFromCard = [], retailChain, category } = useLocation();
   const { state, dispatch } = useContext(store);
 
   const [productsLoading, setProductsLoading] = useState(true);
   const [storesLoading, setStoresLoading] = useState(true);
 
-  const [currentStoreId, setCurrentStoreId] = useState();
+  const [currentStoreId, setCurrentStoreId] = useState(null);
   const [tableData, setTableData] = useState([]);
-  const [stores, setStores] = useState([]);
+  const [stores, setStores] = useState(storesFromCard);
 
   const [width] = useWindowSize();
 
@@ -34,14 +34,14 @@ function Details() {
           const currentRetailChain = data.find(({ name }) => name === retailChain);
           const [firstStore] = currentRetailChain.stores;
 
-          setCurrentStoreId(firstStore.id);
+          if (!currentStoreId) setCurrentStoreId(firstStore.id);
           setStores(currentRetailChain.stores);
 
           setStoresLoading(false);
         }
       })();
     }
-  }, [retailChain, state.contentLanguage]);
+  }, [currentStoreId, retailChain, state.contentLanguage]);
 
   useEffect(() => {
     if (currentStoreId) {

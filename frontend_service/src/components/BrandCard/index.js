@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { links } from '../../utils/constants';
-import { getAddress } from '../../utils/helpers';
+import { getArrayOfProps, getAddress } from '../../utils/helpers';
 import './style.scss';
 
 function BrandCard({ brandData }) {
@@ -32,6 +32,7 @@ function BrandCard({ brandData }) {
         <Link
           to={{
             pathname: links.details,
+            stores: getArrayOfProps(brandData.stores, ['id', 'address', 'coords']),
             category: brandData.buckwheat_slug || null,
             retailChain: brandData.name,
           }}
