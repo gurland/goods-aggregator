@@ -48,7 +48,16 @@
       }
       .description {
         color: #666666;
-        font-size: toRem(18px);
+        font-size: 1rem;
+
+        .info {
+          .name {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 75%;
+          }
+        }
       }
       &.extra {
         padding-top: 0;
