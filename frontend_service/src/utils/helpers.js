@@ -30,3 +30,5 @@ export const getLanguageFromLS = () => getItemFromLS(languageLSKey, defaultConte
 export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, false));
 
 export const getAddress = ({ city, street, building }) => [city, street, building].join(', ');
+
+export const formatPrice = (price) => (price / 100).toFixed(2);

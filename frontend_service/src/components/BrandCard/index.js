@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { links } from '../../utils/constants';
-import { getArrayOfProps, getAddress } from '../../utils/helpers';
+import { getArrayOfProps, getAddress, formatPrice } from '../../utils/helpers';
 import './style.scss';
 
 function BrandCard({ brandData }) {
@@ -20,8 +20,10 @@ function BrandCard({ brandData }) {
               const address = getAddress(addressData);
               return (
                 <div className="info" key={store.id}>
-                  <span className="name">{address}</span>
-                  <span className="value">{product.price + ' ₴'}</span>
+                  <span className="name" title={address}>
+                    {address}
+                  </span>
+                  <span className="value">{formatPrice(product.price) + ' ₴'}</span>
                 </div>
               );
             })}
