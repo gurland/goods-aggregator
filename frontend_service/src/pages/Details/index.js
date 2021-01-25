@@ -47,9 +47,9 @@ function Details() {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const selectedFilters = category
-          ? state.selectedFilters
-          : { ...state.selectedFilters, q: state.searchQuery, sort: 'price_asc' };
+        const selectedFilters = { ...state.selectedFilters, sort: 'price_asc' };
+        if (!category) selectedFilters.q = state.searchQuery;
+
         const { data, status } = await getProducts(currentStoreId, category, selectedFilters, state.contentLanguage);
         if (!data || status !== 200) return;
 
