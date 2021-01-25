@@ -41,7 +41,7 @@ function BrandCard({ brandData }) {
         >
           <Button primary>Details</Button>
         </Link>
-        <span className="price">{brandData.avg_price + ' ₴'}</span>
+        <span className="price">{(brandData.avg_price || 0) + ' ₴'}</span>
       </Card.Content>
     </Card>
   );
