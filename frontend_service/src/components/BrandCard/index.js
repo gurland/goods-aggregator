@@ -15,12 +15,19 @@ function BrandCard({ brandData }) {
         <Card.Header>{brandData.name}</Card.Header>
         <Card.Description>
           <div className="info-wrap">
-            {brandData.stores.map((store) => (
-              <div className="info" key={store.id}>
-                <span className="name">{store.name}</span>
-                <span className="value">{store.lowestPricePerKg + ' ₴'}</span>
-              </div>
-            ))}
+            {brandData.stores.map((store) => {
+              const {
+                address: { city, street, building },
+                product,
+              } = store;
+              const address = [city, street, building].join(', ');
+              return (
+                <div className="info" key={store.id}>
+                  <span className="name">{address}</span>
+                  <span className="value">{product.price + ' ₴'}</span>
+                </div>
+              );
+            })}
           </div>
         </Card.Description>
       </Card.Content>
@@ -28,13 +35,13 @@ function BrandCard({ brandData }) {
         <Link
           to={{
             pathname: links.details,
-            stores: getArrayOfProps(brandData.stores, ['id', 'name', 'coords']),
-            category: brandData.buckwheatUrlPath,
+            stores: getArrayOfProps(brandData.stores, ['id', 'address', 'coords']),
+            category: brandData.buckwheat_slug || null,
           }}
         >
           <Button primary>Details</Button>
         </Link>
-        <span className="price">{brandData.avgPricePerKg + ' ₴'}</span>
+        <span className="price">{brandData.avg_price + ' ₴'}</span>
       </Card.Content>
     </Card>
   );
@@ -43,15 +50,25 @@ function BrandCard({ brandData }) {
 BrandCard.propTypes = {
   brandData: PropTypes.shape({
     name: PropTypes.string,
-    avgPricePerKg: PropTypes.number,
-    buckwheatUrlPath: PropTypes.string,
+    avg_price: PropTypes.number,
+    buckwheat_slug: PropTypes.string,
     stores: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        city: PropTypes.string,
+        id: PropTypes.number,
+        region_id: PropTypes.string,
         coords: PropTypes.string,
-        lowestPricePerKg: PropTypes.number,
+        address: PropTypes.shape({
+          city: PropTypes.string,
+          street: PropTypes.string,
+          building: PropTypes.string,
+        }),
+        product: PropTypes.shape({
+          ean: PropTypes.number,
+          title: PropTypes.string,
+          price: PropTypes.number,
+          weight: PropTypes.number,
+          web_url: PropTypes.string,
+        }),
       }),
     ),
   }),
