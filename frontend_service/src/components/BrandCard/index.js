@@ -54,7 +54,7 @@ BrandCard.propTypes = {
     buckwheat_slug: PropTypes.string,
     stores: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.string,
         region_id: PropTypes.string,
         coords: PropTypes.string,
         address: PropTypes.shape({
@@ -63,7 +63,7 @@ BrandCard.propTypes = {
           building: PropTypes.string,
         }),
         product: PropTypes.shape({
-          ean: PropTypes.number,
+          ean: PropTypes.string,
           title: PropTypes.string,
           price: PropTypes.number,
           weight: PropTypes.number,
