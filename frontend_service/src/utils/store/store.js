@@ -4,12 +4,14 @@ import actions from './actions';
 import { getLanguageFromLS, getDarkThemeFromLS } from '../helpers';
 
 const initialStore = {
+  retailChains: [],
   filters: [],
   selectedFilters: {},
   sidebarVisible: false,
   contentLanguage: getLanguageFromLS(),
   darkTheme: getDarkThemeFromLS(),
   searchQuery: '',
+  homepageLoading: true,
 };
 export const store = createContext(initialStore);
 
@@ -47,6 +49,16 @@ function StoreProvider({ children }) {
         return {
           ...state,
           searchQuery: action.payload,
+        };
+      case actions.SAVE_RETAIL_CHAINS:
+        return {
+          ...state,
+          retailChains: action.payload,
+        };
+      case actions.SET_HOMEPAGE_LOADING:
+        return {
+          ...state,
+          homepageLoading: action.payload,
         };
       default:
         return state;
