@@ -3,33 +3,19 @@ import { useHistory } from 'react-router-dom';
 import { Form, Icon, Input } from 'semantic-ui-react';
 
 import { store, actions } from '../../utils/store';
-import { searchProducts } from '../../utils/api';
 import { links } from '../../utils/constants';
 
 function SearchBar() {
   const [query, setQuery] = useState('');
-  const { state, dispatch } = useContext(store);
+  const { dispatch } = useContext(store);
   const history = useHistory();
 
   const handleChange = useCallback((event, { value }) => setQuery(value), [setQuery]);
 
   const onSearch = useCallback(() => {
-    if (query) {
-      dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: query });
-
-      (async () => {
-        dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: true });
-        history.push(links.homepage);
-        const { data, status } = await searchProducts({ q: query }, state.contentLanguage);
-        if (data?.length && status === 200) {
-          dispatch({ type: actions.SAVE_RETAIL_CHAINS, payload: data });
-          dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: false });
-
-          setQuery('');
-        }
-      })();
-    }
-  }, [dispatch, history, query, state.contentLanguage]);
+    dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: query });
+    history.push(links.homepage);
+  }, [dispatch, history, query]);
 
   return (
     <Form onSubmit={onSearch}>

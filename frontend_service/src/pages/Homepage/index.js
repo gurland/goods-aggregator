@@ -13,13 +13,13 @@ function Homepage() {
   useEffect(() => {
     dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: true });
     (async () => {
-      const { data, status } = await searchProducts({}, state.contentLanguage);
+      const { data, status } = await searchProducts({ q: state.searchQuery }, state.contentLanguage);
       if (data?.length && status === 200) {
         dispatch({ type: actions.SAVE_RETAIL_CHAINS, payload: data });
         dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: false });
       }
     })();
-  }, [dispatch, state.contentLanguage]);
+  }, [dispatch, state.contentLanguage, state.searchQuery]);
 
   return (
     <>
