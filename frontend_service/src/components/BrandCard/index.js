@@ -12,7 +12,7 @@ function BrandCard({ brandData }) {
   return (
     <Card className="brand-card">
       <Card.Content>
-        <Card.Header>{brandData.name}</Card.Header>
+        <Card.Header className="retail-name">{brandData.name}</Card.Header>
         <Card.Description>
           <div className="info-wrap">
             {brandData.stores.map((store) => {
