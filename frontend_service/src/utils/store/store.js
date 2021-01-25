@@ -9,6 +9,7 @@ const initialStore = {
   sidebarVisible: false,
   contentLanguage: getLanguageFromLS(),
   darkTheme: getDarkThemeFromLS(),
+  searchQuery: '',
 };
 export const store = createContext(initialStore);
 
@@ -41,6 +42,11 @@ function StoreProvider({ children }) {
         return {
           ...state,
           darkTheme: action.payload,
+        };
+      case actions.SAVE_SEARCH_QUERY:
+        return {
+          ...state,
+          searchQuery: action.payload,
         };
       default:
         return state;
