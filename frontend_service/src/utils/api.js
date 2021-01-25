@@ -10,7 +10,7 @@ const createUrl = (storeId = null, category = null) => {
   return storeListUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
 };
 
-const createGetRequest = async (url, { params = {}, errorResponse, headers = {} }) => {
+const createGetRequest = async (url, { params = {}, headers = {} }) => {
   try {
     const response = await axios.get(url, {
       params,
@@ -21,7 +21,7 @@ const createGetRequest = async (url, { params = {}, errorResponse, headers = {} 
     });
     return pick(['data', 'status'], response);
   } catch (e) {
-    return errorResponse || e.response;
+    return e.response || {};
   }
 };
 
