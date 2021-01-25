@@ -29,7 +29,7 @@ export const getProducts = async (storeId, category, filters = {}, language) => 
   const url = createUrl(storeId, category);
   const contentLanguage = language || getLanguageFromLS();
 
-  return await createGetRequest(url, {
+  return createGetRequest(url, {
     params: filters,
     headers: { 'Accept-Language': contentLanguage },
   });
