@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { links } from '../../utils/constants';
-import { getArrayOfProps } from '../../utils/helpers';
+import { getArrayOfProps, getAddress } from '../../utils/helpers';
 import './style.scss';
 
 function BrandCard({ brandData }) {
@@ -16,11 +16,8 @@ function BrandCard({ brandData }) {
         <Card.Description>
           <div className="info-wrap">
             {brandData.stores.map((store) => {
-              const {
-                address: { city, street, building },
-                product,
-              } = store;
-              const address = [city, street, building].join(', ');
+              const { address: addressData, product } = store;
+              const address = getAddress(addressData);
               return (
                 <div className="info" key={store.id}>
                   <span className="name">{address}</span>
