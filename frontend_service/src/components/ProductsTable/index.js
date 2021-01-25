@@ -4,10 +4,10 @@ import { Card, Tab } from 'semantic-ui-react';
 
 import SuperTable from '../SuperTable';
 import { productsColumns } from './constants';
-
+import { getAddress } from '../../utils/helpers';
 import './style.scss';
 
-function ProductTable({ className, stores, isLoading, tableData, currentStoreId, setCurrentStoreId }) {
+function ProductTable({ className, stores, isLoading, tableData, setCurrentStoreId }) {
   const handleTabChange = useCallback((event, { activeIndex, panes }) => setCurrentStoreId(panes[activeIndex].id), [
     setCurrentStoreId,
   ]);
@@ -24,15 +24,15 @@ function ProductTable({ className, stores, isLoading, tableData, currentStoreId,
   const panes = useMemo(
     () =>
       stores.map((store) => ({
-        menuItem: store.name,
+        menuItem: getAddress(store.address),
         id: store.id,
         render: () => (
-          <Tab.Pane className="product-table-rows__wrapper" loading={isLoading && store.id === currentStoreId}>
+          <Tab.Pane className="product-table-rows__wrapper" loading={isLoading}>
             {table}
           </Tab.Pane>
         ),
       })),
-    [isLoading, stores, currentStoreId, table],
+    [isLoading, stores, table],
   );
 
   return (

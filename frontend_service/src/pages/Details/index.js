@@ -5,28 +5,54 @@ import { Grid } from 'semantic-ui-react';
 import { ProductTable, PriceGraph, DetailsPageFilters, Sidebar } from '../../components';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
-import { getProducts } from '../../utils/api';
+import { getProducts, searchProducts } from '../../utils/api';
 import { useWindowSize } from '../../utils/hooks';
 import './style.scss';
 
 const SHOW_SIDEBAR_WIDTH = 1200;
 
 function Details() {
-  const { stores = [], category } = useLocation();
-  const [firstStore] = stores;
+  const { stores: storesFromCard = [], retailChain, category } = useLocation();
   const { state, dispatch } = useContext(store);
 
   const [productsLoading, setProductsLoading] = useState(true);
-  const [currentStoreId, setCurrentStoreId] = useState(firstStore?.id);
+  const [storesLoading, setStoresLoading] = useState(true);
+
+  const [currentStoreId, setCurrentStoreId] = useState(null);
   const [tableData, setTableData] = useState([]);
+  const [stores, setStores] = useState(storesFromCard);
 
   const [width] = useWindowSize();
+
+  useEffect(() => {
+    if (retailChain) {
+      setStoresLoading(true);
+
+      (async () => {
+        const { data, status } = await searchProducts({}, state.contentLanguage);
+        if (status === 200 && data) {
+          const currentRetailChain = data.find(({ name }) => name === retailChain);
+          const [firstStore] = currentRetailChain.stores;
+
+          if (!currentStoreId) setCurrentStoreId(firstStore.id);
+          setStores(currentRetailChain.stores);
+
+          setStoresLoading(false);
+        }
+      })();
+    }
+  }, [currentStoreId, retailChain, state.contentLanguage]);
 
   useEffect(() => {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const { data } = await getProducts(currentStoreId, category, state.selectedFilters, state.contentLanguage);
+        const selectedFilters = { ...state.selectedFilters, sort: 'price_asc' };
+        if (!category) selectedFilters.q = state.searchQuery;
+
+        const { data, status } = await getProducts(currentStoreId, category, selectedFilters, state.contentLanguage);
+        if (!data || status !== 200) return;
+
         const { results, filters } = data;
         if (results?.length) {
           setTableData(results);
@@ -39,7 +65,7 @@ function Details() {
         setProductsLoading(false);
       })();
     }
-  }, [currentStoreId, category, state.selectedFilters, dispatch, state.contentLanguage]);
+  }, [currentStoreId, category, state.selectedFilters, dispatch, state.contentLanguage, state.searchQuery]);
 
   const graph = useMemo(() => <PriceGraph className="details-page__price-graph" />, []);
 
@@ -48,13 +74,13 @@ function Details() {
       <ProductTable
         className="details-page__product-table"
         stores={stores}
-        isLoading={productsLoading}
+        isLoading={productsLoading || storesLoading}
         tableData={tableData}
         currentStoreId={currentStoreId}
         setCurrentStoreId={setCurrentStoreId}
       />
     ),
-    [stores, productsLoading, tableData, currentStoreId, setCurrentStoreId],
+    [stores, productsLoading, storesLoading, tableData, currentStoreId],
   );
 
   const detailsPageFilters = useMemo(
@@ -69,7 +95,7 @@ function Details() {
     [state.filters, state.selectedFilters],
   );
 
-  if (!firstStore || !category) return <Redirect to={links.homepage} />;
+  if (!retailChain) return <Redirect to={links.homepage} />;
 
   const createDetailsPage = (withSidebar = false) => (
     <div className={`details-page ${withSidebar ? 'with-sidebar' : ''}`}>

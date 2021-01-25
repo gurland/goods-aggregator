@@ -27,4 +27,11 @@ export const getItemFromLS = (key, defaultValue = null) => localStorage.getItem(
 
 export const getLanguageFromLS = () => getItemFromLS(languageLSKey, defaultContentLanguage);
 
-export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, false));
+export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, true));
+
+export const getAddress = ({ city, street, building }) => [city, street, building].join(', ');
+
+export const formatPrice = (price, defaultValue = 0) => {
+  const formattedPrice = (price / 100).toFixed(2);
+  return isNaN(formattedPrice) ? defaultValue : formattedPrice;
+};

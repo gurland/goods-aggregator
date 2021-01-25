@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.opacity-zero {
+  opacity: 0 !important;
+}
+
 .ui {
   &.tab {
     padding: 0;
@@ -48,7 +52,16 @@
       }
       .description {
         color: #666666;
-        font-size: toRem(18px);
+        font-size: 1rem;
+
+        .info {
+          .name {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 75%;
+          }
+        }
       }
       &.extra {
         padding-top: 0;
@@ -82,9 +95,9 @@
   &.input {
     input {
       background-color: #f5f5f5 !important;
-      border-radius: toRem(30px);
+      border-radius: toRem(30px) !important;
       color: #000000 !important;
-      border: initial;
+      border: initial !important;
     }
   }
 }
