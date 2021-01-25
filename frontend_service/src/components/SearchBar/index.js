@@ -14,19 +14,21 @@ function SearchBar() {
   const handleChange = useCallback((event, { value }) => setQuery(value), [setQuery]);
 
   const onSearch = useCallback(() => {
-    history.push(links.homepage);
-    dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: query });
+    if (query) {
+      dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: query });
 
-    (async () => {
-      dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: true });
-      const { data, status } = await searchProducts({ q: query }, state.contentLanguage);
-      if (data?.length && status === 200) {
-        dispatch({ type: actions.SAVE_RETAIL_CHAINS, payload: data });
-        dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: false });
+      (async () => {
+        dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: true });
+        history.push(links.homepage);
+        const { data, status } = await searchProducts({ q: query }, state.contentLanguage);
+        if (data?.length && status === 200) {
+          dispatch({ type: actions.SAVE_RETAIL_CHAINS, payload: data });
+          dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: false });
 
-        setQuery('');
-      }
-    })();
+          setQuery('');
+        }
+      })();
+    }
   }, [dispatch, history, query, state.contentLanguage]);
 
   return (
