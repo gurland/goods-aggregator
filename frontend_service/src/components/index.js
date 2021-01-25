@@ -7,5 +7,17 @@ import PriceGraph from './PriceGraph';
 import DetailsPageFilters from './DetailsPageFilters';
 import Sidebar from './Sidebar';
 import Settings from './Settings';
+import SearchBar from './SearchBar';
 
-export { Navbar, MapModal, BrandCard, ProductTable, SuperTable, PriceGraph, DetailsPageFilters, Sidebar, Settings };
+export {
+  Navbar,
+  MapModal,
+  BrandCard,
+  ProductTable,
+  SuperTable,
+  PriceGraph,
+  DetailsPageFilters,
+  Sidebar,
+  Settings,
+  SearchBar,
+};

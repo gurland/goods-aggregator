@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { Menu, Input, Icon, Popup, Form } from 'semantic-ui-react';
+import { Menu, Icon, Popup } from 'semantic-ui-react';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import './style.scss';
 
-import { MapModal, Settings } from '../index';
+import { MapModal, Settings, SearchBar } from '../index';
 
 function Navbar(props) {
   const { dispatch, state } = useContext(store);
@@ -25,16 +25,7 @@ function Navbar(props) {
             {showIcons && <Icon name="arrow left" className="navbar-icon arrow-icon" onClick={goToHomepage} />}
           </Menu.Item>
           <Menu.Item>
-            <Form>
-              <Form.Field>
-                <Input
-                  className="icon"
-                  iconPosition="right"
-                  icon={<Icon name="search" link circular />}
-                  placeholder="Search..."
-                />
-              </Form.Field>
-            </Form>
+            <SearchBar />
           </Menu.Item>
           <Menu.Item position="right">
             <Popup
