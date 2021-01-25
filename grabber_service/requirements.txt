@@ -1,1 +1,3 @@
 aiohttp
+peewee
+psycopg2-binary

@@ -1,10 +1,11 @@
-import os
 import logging
-import aiohttp
 import asyncio
-
-from os.path import join
 from time import time
+
+import aiohttp
+from peewee import fn
+
+from models import BuckwheatProduct
 
 
 API_URL = "https://stores-api.zakaz.ua/stores/{0}/categories/{1}/products"
@@ -22,37 +23,54 @@ BUCKWHEAT_URLS = {
 }
 
 
-async def download_products(session: aiohttp.ClientSession, store_id: str, subdirectory: str):
+async def get_buckwheat_by_store_id(session: aiohttp.ClientSession, store_id: str, timestamp: int):
     async with session.get(BUCKWHEAT_URLS.get(store_id)) as response:
+        buckwheat_products = []
         if response.status == 200:
-            content = await response.read()
-            with open(join(subdirectory, f"{store_id}.json"), "wb") as json_file:
-                json_file.write(content)
+            data = await response.json()
+            products = data.get("results")
+            for product in products:
+                price = int(product.get("price"))
+                weight = float(product.get("weight")) or 1000
 
-        else:
-            logging.error(response.url)
-            logging.error(response.status)
+                buckwheat_products.append(
+                    {
+                        "ean": product.get("ean"),
+                        "store_id": store_id,
+                        "timestamp": timestamp,
+                        "price": price,
+                        "price_per_kg": (price / weight) * 1000,
+                    }
+                )
 
-        return response.status
+        return buckwheat_products
 
 
 async def main():
+    last_timestamp = BuckwheatProduct.select(
+        fn.max(BuckwheatProduct.timestamp).alias("last_timestamp")
+    )[0].last_timestamp or 0
     while True:
-        async with aiohttp.ClientSession() as session:
-            timestamp = int(time())
-            data_subdirectory = f"data/{timestamp}"
+        current_timestamp = int(time())
+        if current_timestamp - last_timestamp > 1800:
+            last_timestamp = current_timestamp
 
-            os.makedirs(data_subdirectory)
-            download_futures = [
-                download_products(session, store_id, data_subdirectory) for store_id in BUCKWHEAT_URLS.keys()
-            ]
+            async with aiohttp.ClientSession() as session:
+                download_futures = [
+                    get_buckwheat_by_store_id(session, store_id, current_timestamp)
+                    for store_id in BUCKWHEAT_URLS.keys()
+                ]
 
-            await asyncio.gather(*download_futures)
+                buckwheat_products = []
+                for store_products in await asyncio.gather(*download_futures):
+                    buckwheat_products.extend(store_products)
 
-        await asyncio.sleep(1800)
+                BuckwheatProduct.insert_many(buckwheat_products).execute()
+                logging.info(f"Inserted {len(buckwheat_products)} buckwheat "
+                             f"products at {current_timestamp}")
+
+        await asyncio.sleep(1)
 
 
-start = time()
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
-print(f"Time taken: {time()-start}")

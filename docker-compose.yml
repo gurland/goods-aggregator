@@ -18,19 +18,22 @@ services:
 
   grabber:
     build: ./grabber_service/
+    env_file:
+      - .env
+    depends_on:
+      - db
 
   api:
     build: ./api_service/
+    env_file:
+      - .env
     depends_on:
-      - mongo
+      - db
 
-  mongo:
-    image: mongo
+  db:
+    image: postgres
     restart: always
+    ports:
+    - "5432:5432" # Cancel host port binding on prod
     environment:
-      MONGO_INITDB_DATABASE: buckwheat
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: outsideportisnotopened
-
-
-
+      POSTGRES_PASSWORD: portwontbeopened
