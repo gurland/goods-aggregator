@@ -9,5 +9,4 @@ export const storeSearchUrl = 'https://grechka.tech/api/v1/search';
 export const defaultContentLanguage = 'uk';
 
 export const languageLSKey = 'contentLanguage';
-
 export const darkThemeLSKey = 'darkTheme';
