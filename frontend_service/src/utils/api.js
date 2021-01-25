@@ -34,3 +34,13 @@ export const getProducts = async (storeId, category, filters = {}, language) => 
     headers: { 'Accept-Language': contentLanguage },
   });
 };
+
+export const searchProducts = async (filters = {}, language) => {
+  const url = createUrl();
+  const contentLanguage = language || getLanguageFromLS();
+
+  return createGetRequest(url, {
+    params: filters,
+    headers: { 'Accept-Language': contentLanguage },
+  });
+};
