@@ -73,7 +73,7 @@ function Details() {
     [state.filters, state.selectedFilters],
   );
 
-  if (!firstStore || !category) return <Redirect to={links.homepage} />;
+  if (!firstStore) return <Redirect to={links.homepage} />;
 
   const createDetailsPage = (withSidebar = false) => (
     <div className={`details-page ${withSidebar ? 'with-sidebar' : ''}`}>
