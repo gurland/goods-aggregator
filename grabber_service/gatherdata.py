@@ -37,16 +37,20 @@ async def download_products(session: aiohttp.ClientSession, store_id: str, subdi
 
 
 async def main():
-    async with aiohttp.ClientSession() as session:
-        timestamp = str(int(time()))
-        data_subdirectory = f"data/{timestamp}"
+    while True:
+        async with aiohttp.ClientSession() as session:
+            timestamp = int(time())
+            data_subdirectory = f"data/{timestamp}"
 
-        os.makedirs(data_subdirectory)
-        download_futures = [
-            download_products(session, store_id, data_subdirectory) for store_id in BUCKWHEAT_URLS.keys()
-        ]
+            os.makedirs(data_subdirectory)
+            download_futures = [
+                download_products(session, store_id, data_subdirectory) for store_id in BUCKWHEAT_URLS.keys()
+            ]
 
-        await asyncio.gather(*download_futures)
+            await asyncio.gather(*download_futures)
+
+        await asyncio.sleep(1800)
+
 
 start = time()
 loop = asyncio.get_event_loop()
