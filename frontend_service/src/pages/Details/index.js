@@ -47,9 +47,10 @@ function Details() {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const { data, status } = category
-          ? await getProducts(currentStoreId, category, state.selectedFilters, state.contentLanguage)
-          : await searchProducts(state.selectedFilters, state.contentLanguage); // TODO add q=
+        const selectedFilters = category
+          ? state.selectedFilters
+          : { ...state.selectedFilters, q: state.searchQuery, sort: 'price_asc' };
+        const { data, status } = await getProducts(currentStoreId, category, selectedFilters, state.contentLanguage);
         if (!data || status !== 200) return;
 
         const { results, filters } = data;
@@ -64,7 +65,7 @@ function Details() {
         setProductsLoading(false);
       })();
     }
-  }, [currentStoreId, category, state.selectedFilters, dispatch, state.contentLanguage]);
+  }, [currentStoreId, category, state.selectedFilters, dispatch, state.contentLanguage, state.searchQuery]);
 
   const graph = useMemo(() => <PriceGraph className="details-page__price-graph" />, []);
 

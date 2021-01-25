@@ -2,10 +2,11 @@ import axios from 'axios';
 import { pick } from 'ramda';
 import qs from 'qs';
 
-import { storeListUrl, storeSearchUrl } from './constants';
+import { storeListUrl, storeSearchUrl, zakazSearchUrl } from './constants';
 import { getLanguageFromLS } from './helpers';
 
 const createUrl = (storeId = null, category = null) => {
+  if (storeId && !category) return zakazSearchUrl.replace('{STORE_ID}', storeId);
   if (!(category && storeId)) return storeSearchUrl;
   return storeListUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
 };
