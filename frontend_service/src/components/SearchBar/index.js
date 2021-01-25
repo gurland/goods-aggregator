@@ -23,6 +23,8 @@ function SearchBar() {
       if (data?.length && status === 200) {
         dispatch({ type: actions.SAVE_RETAIL_CHAINS, payload: data });
         dispatch({ type: actions.SET_HOMEPAGE_LOADING, payload: false });
+
+        setQuery('');
       }
     })();
   }, [dispatch, history, query, state.contentLanguage]);
