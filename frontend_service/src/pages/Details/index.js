@@ -5,7 +5,7 @@ import { Grid } from 'semantic-ui-react';
 import { ProductTable, PriceGraph, DetailsPageFilters, Sidebar } from '../../components';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
-import { getProducts } from '../../utils/api';
+import { getProducts, searchProducts } from '../../utils/api';
 import { useWindowSize } from '../../utils/hooks';
 import './style.scss';
 
@@ -26,7 +26,11 @@ function Details() {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const { data } = await getProducts(currentStoreId, category, state.selectedFilters, state.contentLanguage);
+        const { data, status } = category
+          ? await getProducts(currentStoreId, category, state.selectedFilters, state.contentLanguage)
+          : await searchProducts(state.selectedFilters, state.contentLanguage);
+        if (!data || status !== 200) return;
+
         const { results, filters } = data;
         if (results?.length) {
           setTableData(results);
