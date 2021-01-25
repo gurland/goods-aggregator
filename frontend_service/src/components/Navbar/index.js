@@ -14,8 +14,15 @@ function Navbar(props) {
   const history = useHistory();
 
   const showIcons = useLocation().pathname === links.details;
+  const showClearIcon = !!state.searchQuery;
+
   const toggleSidebar = () => dispatch({ type: actions.SIDEBAR_TOGGLE, payload: !state.sidebarVisible });
   const goToHomepage = () => history.push(links.homepage);
+
+  const clearSearchQuery = () => {
+    dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: '' });
+    goToHomepage();
+  };
 
   return (
     <span className="navbar">
@@ -26,6 +33,11 @@ function Navbar(props) {
           </Menu.Item>
           <Menu.Item>
             <SearchBar />
+            <Icon
+              name="times circle outline"
+              className={`navbar-icon clear-search ${showClearIcon ? '' : 'opacity-zero'}`}
+              onClick={clearSearchQuery}
+            />
           </Menu.Item>
           <Menu.Item position="right">
             <Popup
