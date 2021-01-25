@@ -18,7 +18,7 @@ function Navbar(props) {
   const goToHomepage = () => history.push(links.homepage);
 
   return (
-    <span className="navbar">
+    <span className={state.darkTheme ? 'inverted navbar' : 'navbar'}>
       {props.position === 'top' && (
         <Menu fluid widths={3} inverted={state.darkTheme}>
           <Menu.Item>
@@ -36,7 +36,14 @@ function Navbar(props) {
               position="bottom right"
               inverted={state.darkTheme}
             />
-            {showIcons && <Icon name="bars" className="navbar-icon burger-menu" onClick={toggleSidebar} />}
+            {showIcons && (
+              <Icon
+                name="bars"
+                className="navbar-icon burger-menu"
+                onClick={toggleSidebar}
+                inverted={state.darkTheme}
+              />
+            )}
           </Menu.Item>
         </Menu>
       )}

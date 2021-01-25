@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import { Button, Modal } from 'semantic-ui-react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts/lib/echarts';
-
-import PropTypes from 'prop-types';
+import { store } from '../../utils/store';
+import { createDarkThemeClassName } from '../../utils/helpers';
 import './style.scss';
 
 import mapData from './UA.json';
 
 function MapModal(props) {
   const [open, setOpen] = React.useState(false);
+  const { state } = useContext(store);
 
   useEffect(() => {
     echarts.registerMap('UA', mapData);
@@ -115,6 +116,7 @@ function MapModal(props) {
 
   return (
     <Modal
+      className={createDarkThemeClassName('map', state.darkTheme)}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
