@@ -9,13 +9,16 @@ import { store } from '../../utils/store';
 
 function Homepage() {
   const [retailChains, setRetailChains] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { state } = useContext(store);
 
   useEffect(() => {
+    setIsLoading(true);
     (async () => {
       const { data, status } = await searchProducts({}, state.contentLanguage);
       if (data?.length && status === 200) {
         setRetailChains(data);
+        setIsLoading(false);
       }
     })();
   }, [state.contentLanguage]);
@@ -24,10 +27,11 @@ function Homepage() {
     <>
       <div className="main-content">
         <div className="cards-wrap">
-          {retailChains.map((brand) => (
-            <BrandCard brandData={brand} key={brand.name} />
-          ))}
-          {!retailChains.length && <Loader active inline="centered" />}
+          {isLoading ? (
+            <Loader active inline="centered" />
+          ) : (
+            retailChains.map((brand) => <BrandCard brandData={brand} key={brand.name} />)
+          )}
         </div>
       </div>
       <Navbar position={'bottom'} />
