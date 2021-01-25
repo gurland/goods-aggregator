@@ -16,7 +16,21 @@ services:
   frontend:
     build: ./frontend_service/
 
+  grabber:
+    build: ./grabber_service/
+
   api:
     build: ./api_service/
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: buckwheat
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: outsideportisnotopened
+
 
 
