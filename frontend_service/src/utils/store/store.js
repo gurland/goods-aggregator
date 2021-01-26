@@ -12,6 +12,7 @@ const initialStore = {
   darkTheme: getDarkThemeFromLS(),
   searchQuery: '',
   homepageLoading: true,
+  sortType: 'price_asc',
 };
 export const store = createContext(initialStore);
 
@@ -59,6 +60,11 @@ function StoreProvider({ children }) {
         return {
           ...state,
           homepageLoading: action.payload,
+        };
+      case actions.SET_SORTING_TYPE:
+        return {
+          ...state,
+          sortType: action.payload,
         };
       default:
         return state;

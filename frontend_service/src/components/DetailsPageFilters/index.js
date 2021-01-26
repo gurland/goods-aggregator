@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, List, Checkbox, Loader } from 'semantic-ui-react';
 import { capitalize, createDarkThemeClassName } from '../../utils/helpers';
 import { actions, store } from '../../utils/store';
+import SortSlider from '../SortSlider';
 
 function DetailsPageFilters({ className, filters, selectedFilters, isLoading }) {
   const { dispatch, state } = useContext(store);
@@ -69,7 +70,14 @@ function DetailsPageFilters({ className, filters, selectedFilters, isLoading }) 
   return (
     <Card fluid className={createDarkThemeClassName(className, state.darkTheme)}>
       <Card.Content>
-        {isLoading ? <Loader active inline="centered" /> : <List>{createFilterList(filters)}</List>}
+        {isLoading && !filters.length ? (
+          <Loader active inline="centered" />
+        ) : (
+          <List>
+            <SortSlider />
+            {createFilterList(filters)}
+          </List>
+        )}
       </Card.Content>
     </Card>
   );

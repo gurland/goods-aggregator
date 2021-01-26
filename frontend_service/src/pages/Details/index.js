@@ -48,7 +48,7 @@ function Details() {
     if (currentStoreId) {
       setProductsLoading(true);
       (async () => {
-        const selectedFilters = { ...state.selectedFilters, sort: 'price_asc' };
+        const selectedFilters = { ...state.selectedFilters, sort: state.sortType };
         if (!category) selectedFilters.q = state.searchQuery;
 
         const { data, status } = await getProducts(currentStoreId, category, selectedFilters, state.contentLanguage);
@@ -66,7 +66,15 @@ function Details() {
         setProductsLoading(false);
       })();
     }
-  }, [currentStoreId, category, state.selectedFilters, dispatch, state.contentLanguage, state.searchQuery]);
+  }, [
+    currentStoreId,
+    category,
+    state.selectedFilters,
+    dispatch,
+    state.contentLanguage,
+    state.searchQuery,
+    state.sortType,
+  ]);
 
   const graph = useMemo(() => <PriceGraph className="details-page__price-graph" />, []);
 
@@ -89,10 +97,10 @@ function Details() {
         className="details-page__filters"
         filters={state.filters}
         selectedFilters={state.selectedFilters}
-        isLoading={false} // TODO find a better solution to show preloader
+        isLoading={productsLoading}
       />
     ),
-    [state.filters, state.selectedFilters],
+    [productsLoading, state.filters, state.selectedFilters],
   );
 
   if (!retailChain) return <Redirect to={links.homepage} />;
