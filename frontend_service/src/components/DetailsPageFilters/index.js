@@ -2,11 +2,11 @@ import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, List, Checkbox, Loader } from 'semantic-ui-react';
-import { capitalize } from '../../utils/helpers';
+import { capitalize, createDarkThemeClassName } from '../../utils/helpers';
 import { actions, store } from '../../utils/store';
 
 function DetailsPageFilters({ className, filters, selectedFilters, isLoading }) {
-  const { dispatch } = useContext(store);
+  const { dispatch, state } = useContext(store);
 
   const setSelectedFilters = useCallback(
     (newFilters) => dispatch({ type: actions.SELECT_FILTERS, payload: newFilters }),
@@ -67,7 +67,7 @@ function DetailsPageFilters({ className, filters, selectedFilters, isLoading }) 
     });
 
   return (
-    <Card fluid className={className}>
+    <Card fluid className={createDarkThemeClassName(className, state.darkTheme)}>
       <Card.Content>
         {isLoading ? <Loader active inline="centered" /> : <List>{createFilterList(filters)}</List>}
       </Card.Content>

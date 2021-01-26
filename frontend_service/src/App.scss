@@ -7,6 +7,7 @@ body {
     height: 100%;
 
     .main-content {
+      transition: .3s background-color ease-in-out;
       background-color: #fbfcfd;
       padding: toRem(30px);
       display: flex;
@@ -16,6 +17,9 @@ body {
 
       @media #{$max1199} {
         padding: toRem(15px);
+      }
+      &.inverted {
+        background-color: #2B3648;
       }
     }
   }

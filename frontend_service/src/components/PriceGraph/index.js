@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { Card } from 'semantic-ui-react';
 import ReactEcharts from 'echarts-for-react';
 import './style.scss';
+import { store } from '../../utils/store';
+import { createDarkThemeClassName } from '../../utils/helpers';
 
 function PriceGraph({ className }) {
+  const { state } = useContext(store);
   const timeData = [];
 
   for (let i = 1; i <= 30; i++) {
@@ -23,7 +26,7 @@ function PriceGraph({ className }) {
   }
 
   function getOption() {
-    return {
+    const options = {
       tooltip: {
         trigger: 'axis',
         position: function (pt) {
@@ -32,6 +35,7 @@ function PriceGraph({ className }) {
       },
       legend: {
         data: ['Skvyrianka', 'Khutorok'],
+        show: true,
       },
       xAxis: {
         type: 'category',
@@ -59,18 +63,64 @@ function PriceGraph({ className }) {
           name: 'Skvyrianka',
           type: 'line',
           data: getData(),
+          color: '#5AD4EF',
         },
         {
           name: 'Khutorok',
           type: 'line',
           data: getData(),
+          color: '#9E2C04',
         },
       ],
     };
+
+    if (state.darkTheme) {
+      options.grid = {
+        backgroundColor: '#212936',
+        show: true,
+      };
+      options.xAxis.axisLabel = {
+        show: true,
+        textStyle: {
+          color: '#fff',
+        },
+      };
+      options.yAxis.axisLabel = {
+        show: true,
+        textStyle: {
+          color: '#fff',
+        },
+      };
+      options.legend.textStyle = {
+        color: '#fff',
+      };
+    } else {
+      options.grid = {
+        backgroundColor: '#fff',
+        show: true,
+      };
+      options.xAxis.axisLabel = {
+        show: true,
+        textStyle: {
+          color: '#000',
+        },
+      };
+      options.yAxis.axisLabel = {
+        show: true,
+        textStyle: {
+          color: '#000',
+        },
+      };
+      options.legend.textStyle = {
+        color: '#000',
+      };
+    }
+
+    return options;
   }
 
   return (
-    <Card fluid className={className}>
+    <Card fluid className={createDarkThemeClassName(className, state.darkTheme)}>
       <Card.Content>
         <ReactEcharts option={getOption()} />
       </Card.Content>

@@ -27,7 +27,9 @@ export const getItemFromLS = (key, defaultValue = null) => localStorage.getItem(
 
 export const getLanguageFromLS = () => getItemFromLS(languageLSKey, defaultContentLanguage);
 
-export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, true));
+export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, false));
+
+export const createDarkThemeClassName = (className, isDarkTheme) => `${className} ${isDarkTheme ? 'inverted' : ''}`;
 
 export const getAddress = ({ city, street, building }) => [city, street, building].join(', ');
 
