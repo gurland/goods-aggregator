@@ -5,7 +5,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { links } from '../../utils/constants';
-import { getArrayOfProps, createDarkThemeClassName, getAddress, formatPrice } from '../../utils/helpers';
+import {
+  getArrayOfProps,
+  createDarkThemeClassName,
+  getAddress,
+  formatPrice,
+  getLowestPrice,
+} from '../../utils/helpers';
 import { store } from '../../utils/store';
 import './style.scss';
 
@@ -44,7 +50,7 @@ function BrandCard({ brandData }) {
         >
           <Button primary>Details</Button>
         </Link>
-        <span className="price">{(brandData.avg_price || 0) + ' ₴'}</span>
+        <span className="price">{formatPrice(getLowestPrice(brandData.stores)) + ' ₴'}</span>
       </Card.Content>
     </Card>
   );

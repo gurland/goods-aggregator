@@ -9,7 +9,7 @@ import { createDarkThemeClassName, getAddress } from '../../utils/helpers';
 import './style.scss';
 import { store } from '../../utils/store';
 
-function ProductTable({ className, stores, isLoading, tableData, currentStoreId, setCurrentStoreId }) {
+function ProductTable({ className, stores, isLoading, tableData, setCurrentStoreId }) {
   const { state } = useContext(store);
   const isDarkTheme = state.darkTheme;
 
@@ -34,13 +34,13 @@ function ProductTable({ className, stores, isLoading, tableData, currentStoreId,
         render: () => (
           <Tab.Pane
             className={createDarkThemeClassName('product-table-rows__wrapper', isDarkTheme)}
-            loading={isLoading && store.id === currentStoreId}
+            loading={isLoading}
           >
             {table}
           </Tab.Pane>
         ),
       })),
-    [isLoading, stores, table],
+    [isDarkTheme, isLoading, stores, table],
   );
 
   return (

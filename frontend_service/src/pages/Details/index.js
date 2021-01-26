@@ -77,11 +77,10 @@ function Details() {
         stores={stores}
         isLoading={productsLoading || storesLoading}
         tableData={tableData}
-        currentStoreId={currentStoreId}
         setCurrentStoreId={setCurrentStoreId}
       />
     ),
-    [stores, productsLoading, storesLoading, tableData, currentStoreId],
+    [stores, productsLoading, storesLoading, tableData],
   );
 
   const detailsPageFilters = useMemo(

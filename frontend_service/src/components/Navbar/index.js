@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { Menu, Icon, Popup } from 'semantic-ui-react';
+import { Menu, Icon, Popup, Header } from 'semantic-ui-react';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
+import { createDarkThemeClassName } from '../../utils/helpers';
 import './style.scss';
 
 import { MapModal, Settings, SearchBar } from '../index';
@@ -12,6 +13,7 @@ import { MapModal, Settings, SearchBar } from '../index';
 function Navbar(props) {
   const { dispatch, state } = useContext(store);
   const history = useHistory();
+  const { retailChain } = useLocation();
 
   const showIcons = useLocation().pathname === links.details;
   const showClearIcon = !!state.searchQuery;
@@ -32,12 +34,18 @@ function Navbar(props) {
             {showIcons && <Icon name="arrow left" className="navbar-icon arrow-icon" onClick={goToHomepage} />}
           </Menu.Item>
           <Menu.Item>
-            <SearchBar />
-            <Icon
-              name="times circle outline"
-              className={`navbar-icon clear-search ${showClearIcon ? '' : 'opacity-zero'}`}
-              onClick={clearSearchQuery}
-            />
+            {!showIcons ? (
+              <>
+                <SearchBar />
+                <Icon
+                  name="times circle outline"
+                  className={`navbar-icon clear-search ${showClearIcon ? '' : 'opacity-zero'}`}
+                  onClick={clearSearchQuery}
+                />
+              </>
+            ) : (
+              <Header className={createDarkThemeClassName('retail-name', state.darkTheme)}>{retailChain}</Header>
+            )}
           </Menu.Item>
           <Menu.Item position="right">
             <Popup

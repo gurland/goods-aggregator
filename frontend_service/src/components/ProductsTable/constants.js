@@ -6,7 +6,11 @@ export const productsColumns = [
     selector: 'producer',
     cell: (original) => {
       const logoLink = original.producer?.logo?.s64x64;
-      return logoLink ? <img src={original.producer?.logo?.s64x64} alt={original.producer?.name} /> : null;
+      return logoLink ? (
+        <img src={original.producer?.logo?.s64x64} alt={original.producer?.name} />
+      ) : (
+        <img src={original.img?.s150x150} width="64" height="64" alt={original.producer?.name} />
+      );
     },
   },
   {

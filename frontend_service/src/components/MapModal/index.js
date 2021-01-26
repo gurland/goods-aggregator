@@ -4,7 +4,7 @@ import { Button, Modal } from 'semantic-ui-react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts/lib/echarts';
 import { store } from '../../utils/store';
-import { createDarkThemeClassName } from '../../utils/helpers';
+import { createDarkThemeClassName, formatPrice } from '../../utils/helpers';
 import './style.scss';
 
 import mapData from './UA.json';
@@ -17,71 +17,33 @@ function MapModal(props) {
     echarts.registerMap('UA', mapData);
   }, []);
 
-  const storesData = {
-    Novus: [
-      {
-        coordinates: [24, 50],
-        name: 'Store #1',
-        value: 12,
-      },
-      {
-        coordinates: [30, 49],
-        name: 'Store #2',
-        value: 43,
-      },
-      {
-        coordinates: [38, 49],
-        name: 'Store #3',
-        value: 31,
-      },
-    ],
-    Metro: [
-      {
-        coordinates: [30, 48],
-        name: 'Store #1',
-        value: 24,
-      },
-      {
-        coordinates: [29, 50],
-        name: 'Store #2',
-        value: 32,
-      },
-      {
-        coordinates: [36, 49],
-        name: 'Store #3',
-        value: 12,
-      },
-    ],
-    Auchan: [
-      {
-        coordinates: [25, 51],
-        name: 'Store #1',
-        value: 12,
-      },
-      {
-        coordinates: [31, 50],
-        name: 'Store #2',
-        value: 43,
-      },
-      {
-        coordinates: [34.3, 45.4],
-        name: 'Store #3',
-        value: 31,
-      },
-    ],
-  };
-
-  function getStoresData(name) {
+  function parseBrandData(data) {
     const res = [];
 
-    storesData[name].forEach((store) => {
+    data.stores.forEach((item) => {
+      const coords = item.coords
+        .split(', ')
+        .map((i) => {
+          return parseFloat(i, 10);
+        })
+        .reverse();
+
       res.push({
-        name: store.name,
-        value: store.coordinates.concat(store.value),
+        name: data.name + ' - ' + item.product.title,
+        value: coords.concat(formatPrice(item.product.price)),
       });
     });
 
     return res;
+  }
+
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
   function getOption() {
@@ -114,72 +76,34 @@ function MapModal(props) {
           },
         },
       },
-      series: [
-        {
-          type: 'effectScatter',
-          coordinateSystem: 'geo',
-          data: getStoresData('Novus'),
-          symbolSize: 12,
-          label: {
-            normal: {
-              show: false,
-            },
-            emphasis: {
-              show: false,
-            },
-          },
-          itemStyle: {
-            color: '#00C853',
-            emphasis: {
-              borderColor: '#fff',
-              borderWidth: 1,
-            },
-          },
-        },
-        {
-          type: 'effectScatter',
-          coordinateSystem: 'geo',
-          data: getStoresData('Metro'),
-          symbolSize: 12,
-          label: {
-            normal: {
-              show: false,
-            },
-            emphasis: {
-              show: false,
-            },
-          },
-          itemStyle: {
-            color: '#E53935',
-            emphasis: {
-              borderColor: '#fff',
-              borderWidth: 1,
-            },
-          },
-        },
-        {
-          type: 'effectScatter',
-          coordinateSystem: 'geo',
-          data: getStoresData('Auchan'),
-          symbolSize: 12,
-          label: {
-            normal: {
-              show: false,
-            },
-            emphasis: {
-              show: false,
-            },
-          },
-          itemStyle: {
-            color: '#1976D2',
-            emphasis: {
-              borderColor: '#fff',
-              borderWidth: 1,
-            },
-          },
-        },
-      ],
+      series: [],
     };
+
+    state.retailChains.forEach((brand) => {
+      const seriesObj = {
+        type: 'effectScatter',
+        coordinateSystem: 'geo',
+        data: parseBrandData(brand),
+        symbolSize: 6,
+        label: {
+          normal: {
+            show: false,
+          },
+          emphasis: {
+            show: false,
+          },
+        },
+        itemStyle: {
+          color: getRandomColor(),
+          emphasis: {
+            borderColor: '#fff',
+            borderWidth: 1,
+          },
+        },
+      };
+
+      options.series.push(seriesObj);
+    });
 
     if (state.darkTheme) {
       options.title.textStyle = {
