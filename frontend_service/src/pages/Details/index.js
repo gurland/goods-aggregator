@@ -73,7 +73,12 @@ function Details() {
   if (!firstStore || !category) return <Redirect to={links.homepage} />;
 
   const createDetailsPage = (withSidebar = false) => (
-    <div className={createDarkThemeClassName(`details-page main-content ${withSidebar ? 'with-sidebar' : ''}`, state.darkTheme)}>
+    <div
+      className={createDarkThemeClassName(
+        `details-page main-content ${withSidebar ? 'with-sidebar' : ''}`,
+        state.darkTheme,
+      )}
+    >
       <Grid centered className="details-page__grid">
         <Grid.Row columns={2}>
           <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">

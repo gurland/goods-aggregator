@@ -17,28 +17,64 @@ function MapModal(props) {
     echarts.registerMap('UA', mapData);
   }, []);
 
-  const storesData = [
-    {
-      coordinates: [25, 51],
-      name: 'Novus',
-      value: 228,
-    },
-    {
-      coordinates: [31, 50],
-      name: 'Metro',
-      value: 1488,
-    },
-    {
-      coordinates: [34.3, 45.4],
-      name: 'Auchan',
-      value: 1337,
-    },
-  ];
+  const storesData = {
+    Novus: [
+      {
+        coordinates: [24, 50],
+        name: 'Store #1',
+        value: 12,
+      },
+      {
+        coordinates: [30, 49],
+        name: 'Store #2',
+        value: 43,
+      },
+      {
+        coordinates: [38, 49],
+        name: 'Store #3',
+        value: 31,
+      },
+    ],
+    Metro: [
+      {
+        coordinates: [30, 48],
+        name: 'Store #1',
+        value: 24,
+      },
+      {
+        coordinates: [29, 50],
+        name: 'Store #2',
+        value: 32,
+      },
+      {
+        coordinates: [36, 49],
+        name: 'Store #3',
+        value: 12,
+      },
+    ],
+    Auchan: [
+      {
+        coordinates: [25, 51],
+        name: 'Store #1',
+        value: 12,
+      },
+      {
+        coordinates: [31, 50],
+        name: 'Store #2',
+        value: 43,
+      },
+      {
+        coordinates: [34.3, 45.4],
+        name: 'Store #3',
+        value: 31,
+      },
+    ],
+  };
 
-  function getStoresData() {
+  function getStoresData(name) {
     const res = [];
 
-    storesData.forEach((store) => {
+    storesData[name].forEach((store) => {
       res.push({
         name: store.name,
         value: store.coordinates.concat(store.value),
@@ -49,28 +85,17 @@ function MapModal(props) {
   }
 
   function getOption() {
-    return {
+    const options = {
       title: {
         text: 'Stores map',
         left: 'center',
+        padding: 20,
       },
       tooltip: {
         trigger: 'item',
         formatter: (params) => {
           return `${params.name} - ${params.value[2]} ₴`;
         },
-      },
-      visualMap: {
-        type: 'piecewise',
-        textStyle: {
-          color: '#00000',
-        },
-        pieces: [
-          { min: 300, label: 'High', color: '#e3bf4c' },
-          { min: 200, max: 300, label: 'Middle', color: '#be4f51' },
-          { min: 100, max: 200, label: 'Low', color: '#60c2cc' },
-        ],
-        color: ['#e3bf4c', '#be4f51', '#60c2cc'],
       },
       geo: {
         map: 'UA',
@@ -93,7 +118,7 @@ function MapModal(props) {
         {
           type: 'effectScatter',
           coordinateSystem: 'geo',
-          data: getStoresData(),
+          data: getStoresData('Novus'),
           symbolSize: 12,
           label: {
             normal: {
@@ -104,6 +129,49 @@ function MapModal(props) {
             },
           },
           itemStyle: {
+            color: '#00C853',
+            emphasis: {
+              borderColor: '#fff',
+              borderWidth: 1,
+            },
+          },
+        },
+        {
+          type: 'effectScatter',
+          coordinateSystem: 'geo',
+          data: getStoresData('Metro'),
+          symbolSize: 12,
+          label: {
+            normal: {
+              show: false,
+            },
+            emphasis: {
+              show: false,
+            },
+          },
+          itemStyle: {
+            color: '#E53935',
+            emphasis: {
+              borderColor: '#fff',
+              borderWidth: 1,
+            },
+          },
+        },
+        {
+          type: 'effectScatter',
+          coordinateSystem: 'geo',
+          data: getStoresData('Auchan'),
+          symbolSize: 12,
+          label: {
+            normal: {
+              show: false,
+            },
+            emphasis: {
+              show: false,
+            },
+          },
+          itemStyle: {
+            color: '#1976D2',
             emphasis: {
               borderColor: '#fff',
               borderWidth: 1,
@@ -112,6 +180,35 @@ function MapModal(props) {
         },
       ],
     };
+
+    if (state.darkTheme) {
+      options.title.textStyle = {
+        color: '#fff',
+      };
+      options.geo.itemStyle = {
+        normal: {
+          areaColor: '#2B3648',
+          borderColor: '#AFBDD1',
+        },
+        emphasis: {
+          areaColor: '#56657F',
+        },
+      };
+    } else {
+      options.title.textStyle = {
+        color: '#000',
+      };
+      options.geo.itemStyle = {
+        normal: {
+          areaColor: '#fbfcfd',
+          borderColor: '#666666',
+        },
+        emphasis: {
+          areaColor: '#dbeefd',
+        },
+      };
+    }
+    return options;
   }
 
   return (
