@@ -4,6 +4,7 @@ Aggregating data about goods from different stores for you to choose the most af
 
 ## Demo
 [Hosted website](https://grechka.tech/) <br/>
+![Main page](https://i.imgur.com/OWxUJvi.png)
 
 
 ## Features
