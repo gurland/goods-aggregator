@@ -6,6 +6,7 @@
     "axios": "^0.21.1",
     "echarts": "^4.0.0",
     "echarts-for-react": "^2.0.16",
+    "gzipper": "^4.3.0",
     "node-sass": "4.14.1",
     "prop-types": "^15.7.2",
     "qs": "^6.9.6",
