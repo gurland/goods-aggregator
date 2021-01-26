@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Card } from 'semantic-ui-react';
+import { Card, Header } from 'semantic-ui-react';
 import ReactEcharts from 'echarts-for-react';
 import './style.scss';
 import { store } from '../../utils/store';
 import { createDarkThemeClassName } from '../../utils/helpers';
-import { Header } from 'semantic-ui-react';
 
-function PriceGraph({ className, showGraph }) {
+function PriceGraph({ className, showGraph, series }) {
   const { state } = useContext(store);
   const timeData = [];
 
@@ -35,7 +34,7 @@ function PriceGraph({ className, showGraph }) {
         },
       },
       legend: {
-        data: ['Skvyrianka', 'Khutorok'],
+        data: ['Skvyrianka'],
         show: true,
       },
       xAxis: {
@@ -59,20 +58,7 @@ function PriceGraph({ className, showGraph }) {
           end: 20,
         },
       ],
-      series: [
-        {
-          name: 'Skvyrianka',
-          type: 'line',
-          data: getData(),
-          color: '#5AD4EF',
-        },
-        {
-          name: 'Khutorok',
-          type: 'line',
-          data: getData(),
-          color: '#9E2C04',
-        },
-      ],
+      series,
     };
 
     if (state.darkTheme) {
