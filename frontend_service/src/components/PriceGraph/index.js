@@ -21,7 +21,7 @@ function PriceGraph({ className, showGraph, graphData }) {
       },
       legend: {
         data: names,
-        show: true,
+        show: false,
       },
       xAxis: {
         type: 'category',
