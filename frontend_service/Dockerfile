@@ -2,7 +2,7 @@ FROM node:lts-alpine as build-stage
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json .
 RUN npm install
 
 COPY . .

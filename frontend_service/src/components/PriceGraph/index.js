@@ -1,14 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Card } from 'semantic-ui-react';
+import { Card, Header } from 'semantic-ui-react';
 import ReactEcharts from 'echarts-for-react';
 import './style.scss';
 import { store } from '../../utils/store';
 import { createDarkThemeClassName } from '../../utils/helpers';
-import { getChartData } from '../../utils/api';
 
-function PriceGraph({ className, series }) {
+function PriceGraph({ className, showGraph, series }) {
   const { state } = useContext(store);
   const timeData = [];
 
@@ -110,7 +109,14 @@ function PriceGraph({ className, series }) {
   return (
     <Card fluid className={createDarkThemeClassName(className, state.darkTheme)}>
       <Card.Content>
-        <ReactEcharts option={getOption()} />
+        {showGraph ? (
+          <ReactEcharts option={getOption()} />
+        ) : (
+          <Header id="no-graph-warning">
+            <p>Sorry, price information about these products is currently unavailable.</p>
+            <p>Please, try again later.</p>
+          </Header>
+        )}
       </Card.Content>
     </Card>
   );
@@ -118,6 +124,7 @@ function PriceGraph({ className, series }) {
 
 PriceGraph.propTypes = {
   className: PropTypes.string,
+  showGraph: PropTypes.bool.isRequired,
 };
 
 PriceGraph.defaultProps = {
