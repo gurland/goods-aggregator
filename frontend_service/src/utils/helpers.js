@@ -30,3 +30,10 @@ export const getLanguageFromLS = () => getItemFromLS(languageLSKey, defaultConte
 export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, false));
 
 export const createDarkThemeClassName = (className, isDarkTheme) => `${className} ${isDarkTheme ? 'inverted' : ''}`;
+
+export const getAddress = ({ city, street, building }) => [city, street, building].join(', ');
+
+export const formatPrice = (price, defaultValue = 0) => {
+  const formattedPrice = (price / 100).toFixed(2);
+  return isNaN(formattedPrice) ? defaultValue : formattedPrice;
+};

@@ -1,0 +1,39 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx_service/
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+       - /etc/letsencrypt/archive/grechka.tech/:/etc/nginx/certs/
+    
+    depends_on:
+      - frontend
+      - api
+
+  frontend:
+    build: ./frontend_service/
+
+  grabber:
+    build: ./grabber_service/
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  api:
+    build: ./api_service/
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+    - "5432:5432" # Cancel host port binding on prod
+    environment:
+      POSTGRES_PASSWORD: portwontbeopened

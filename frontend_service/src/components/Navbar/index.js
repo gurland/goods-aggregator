@@ -2,20 +2,27 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { Menu, Input, Icon, Popup } from 'semantic-ui-react';
+import { Menu, Icon, Popup } from 'semantic-ui-react';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import './style.scss';
 
-import { MapModal, Settings } from '../index';
+import { MapModal, Settings, SearchBar } from '../index';
 
 function Navbar(props) {
   const { dispatch, state } = useContext(store);
   const history = useHistory();
 
   const showIcons = useLocation().pathname === links.details;
+  const showClearIcon = !!state.searchQuery;
+
   const toggleSidebar = () => dispatch({ type: actions.SIDEBAR_TOGGLE, payload: !state.sidebarVisible });
   const goToHomepage = () => history.push(links.homepage);
+
+  const clearSearchQuery = () => {
+    dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: '' });
+    goToHomepage();
+  };
 
   return (
     <span className={state.darkTheme ? 'inverted navbar' : 'navbar'}>
@@ -25,7 +32,12 @@ function Navbar(props) {
             {showIcons && <Icon name="arrow left" className="navbar-icon arrow-icon" onClick={goToHomepage} />}
           </Menu.Item>
           <Menu.Item>
-            <Input className="icon" iconPosition="left" icon="search" placeholder="Search..." />
+            <SearchBar />
+            <Icon
+              name="times circle outline"
+              className={`navbar-icon clear-search ${showClearIcon ? '' : 'opacity-zero'}`}
+              onClick={clearSearchQuery}
+            />
           </Menu.Item>
           <Menu.Item position="right">
             <Popup

@@ -1,7 +1,0 @@
-version: "3"
-services:
-  grabber:
-    build: .
-    command: python gatherdata.py
-    volumes:
-      - ./data:/data

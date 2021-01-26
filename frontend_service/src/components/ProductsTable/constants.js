@@ -1,3 +1,5 @@
+import { formatPrice } from '../../utils/helpers';
+
 export const productsColumns = [
   {
     header: '',
@@ -25,7 +27,7 @@ export const productsColumns = [
   {
     header: 'Price',
     selector: 'price',
-    cell: (original) => (original.price / 100).toFixed(2),
+    cell: (original) => formatPrice(original.price),
   },
   {
     header: 'URL',

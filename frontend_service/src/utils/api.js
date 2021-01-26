@@ -2,12 +2,16 @@ import axios from 'axios';
 import { pick } from 'ramda';
 import qs from 'qs';
 
-import { storeApiUrl } from './constants';
+import { storeListUrl, storeSearchUrl, zakazSearchUrl } from './constants';
 import { getLanguageFromLS } from './helpers';
 
-const createUrl = (storeId, category) => storeApiUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
+const createUrl = (storeId = null, category = null) => {
+  if (storeId && !category) return zakazSearchUrl.replace('{STORE_ID}', storeId);
+  if (!(category && storeId)) return storeSearchUrl;
+  return storeListUrl.replace('{STORE_ID}', storeId).replace('{CATEGORY}', category);
+};
 
-const createGetRequest = async (url, { params = {}, errorResponse, headers = {} }) => {
+const createGetRequest = async (url, { params = {}, headers = {} }) => {
   try {
     const response = await axios.get(url, {
       params,
@@ -18,7 +22,7 @@ const createGetRequest = async (url, { params = {}, errorResponse, headers = {} 
     });
     return pick(['data', 'status'], response);
   } catch (e) {
-    return errorResponse || e.response;
+    return e.response || {};
   }
 };
 
@@ -26,7 +30,17 @@ export const getProducts = async (storeId, category, filters = {}, language) => 
   const url = createUrl(storeId, category);
   const contentLanguage = language || getLanguageFromLS();
 
-  return await createGetRequest(url, {
+  return createGetRequest(url, {
+    params: filters,
+    headers: { 'Accept-Language': contentLanguage },
+  });
+};
+
+export const searchProducts = async (filters = {}, language) => {
+  const url = createUrl();
+  const contentLanguage = language || getLanguageFromLS();
+
+  return createGetRequest(url, {
     params: filters,
     headers: { 'Accept-Language': contentLanguage },
   });

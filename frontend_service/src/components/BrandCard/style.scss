@@ -2,6 +2,9 @@
 
 .brand-card {
   .content {
+    .retail-name {
+      text-transform: capitalize;
+    }
     .description {
       .info-wrap {
         .info {

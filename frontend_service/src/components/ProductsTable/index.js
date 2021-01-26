@@ -4,7 +4,7 @@ import { Card, Tab } from 'semantic-ui-react';
 
 import SuperTable from '../SuperTable';
 import { productsColumns } from './constants';
-import { createDarkThemeClassName } from '../../utils/helpers';
+import { createDarkThemeClassName, getAddress } from '../../utils/helpers';
 
 import './style.scss';
 import { store } from '../../utils/store';
@@ -29,7 +29,7 @@ function ProductTable({ className, stores, isLoading, tableData, currentStoreId,
   const panes = useMemo(
     () =>
       stores.map((store) => ({
-        menuItem: store.name,
+        menuItem: getAddress(store.address),
         id: store.id,
         render: () => (
           <Tab.Pane
@@ -40,7 +40,7 @@ function ProductTable({ className, stores, isLoading, tableData, currentStoreId,
           </Tab.Pane>
         ),
       })),
-    [stores, isDarkTheme, isLoading, currentStoreId, table],
+    [isLoading, stores, table],
   );
 
   return (
