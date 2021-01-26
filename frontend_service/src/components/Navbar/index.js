@@ -5,6 +5,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { Menu, Icon, Popup, Header } from 'semantic-ui-react';
 import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
+import { createDarkThemeClassName } from '../../utils/helpers';
 import './style.scss';
 
 import { MapModal, Settings, SearchBar } from '../index';
@@ -43,7 +44,7 @@ function Navbar(props) {
                 />
               </>
             ) : (
-              <Header className="retail-name">{retailChain}</Header>
+              <Header className={createDarkThemeClassName('retail-name', state.darkTheme)}>{retailChain}</Header>
             )}
           </Menu.Item>
           <Menu.Item position="right">
