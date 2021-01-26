@@ -29,12 +29,19 @@
     align-items: center;
 
     .item {
+      .icon {
+        margin-left: toRem(20px) !important;
+      }
       &::before {
         display: none;
       }
       &.right {
         justify-content: flex-end;
         padding-right: toRem(30px) !important;
+
+        .icon {
+          margin: 0 !important;
+        }
       }
     }
     &.inverted {
@@ -371,6 +378,20 @@
           }
         }
       }
+    }
+  }
+
+  &.pointing {
+    overflow-x: auto;
+    overflow-y: auto;
+    border-color: #E5E5E5 !important;
+
+    .item {
+      margin: 0 !important;
+      height: 100%;
+    }
+    .inverted & {
+      border-color: #313C4E !important;
     }
   }
 }
