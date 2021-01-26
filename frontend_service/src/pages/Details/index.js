@@ -8,6 +8,7 @@ import { store, actions } from '../../utils/store';
 import { getProducts, searchProducts } from '../../utils/api';
 import { useWindowSize } from '../../utils/hooks';
 import { createDarkThemeClassName } from '../../utils/helpers';
+import { getChartData } from '../../utils/api';
 import './style.scss';
 
 const SHOW_SIDEBAR_WIDTH = 1200;
@@ -23,8 +24,27 @@ function Details() {
   const [tableData, setTableData] = useState([]);
   const [stores, setStores] = useState(storesFromCard);
 
+  const [series, setSeries] = useState([]);
+
   const [width] = useWindowSize();
 
+  useEffect(() => {
+    (async () => {
+      if (currentStoreId) {
+        const { data: chardData, status: chartStatus } = await getChartData(currentStoreId, '04820153260696');
+        if (chartStatus === 200) {
+          setSeries([
+            {
+              name: 'Skvyrianka',
+              type: 'line',
+              data: chardData.prices,
+              color: '#5AD4EF',
+            },
+          ]);
+        }
+      }
+    })();
+  }, [currentStoreId]);
   useEffect(() => {
     if (retailChain) {
       setStoresLoading(true);
@@ -76,7 +96,7 @@ function Details() {
     state.sortType,
   ]);
 
-  const graph = useMemo(() => <PriceGraph className="details-page__price-graph" />, []);
+  const graph = useMemo(() => <PriceGraph className="details-page__price-graph" series={series} />, [series]);
 
   const productTable = useMemo(
     () => (

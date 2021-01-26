@@ -2,7 +2,7 @@ import axios from 'axios';
 import { pick } from 'ramda';
 import qs from 'qs';
 
-import { storeListUrl, storeSearchUrl, zakazSearchUrl } from './constants';
+import { storeListUrl, storeSearchUrl, zakazSearchUrl, graphSearchUrl } from './constants';
 import { getLanguageFromLS } from './helpers';
 
 const createUrl = (storeId = null, category = null) => {
@@ -44,4 +44,10 @@ export const searchProducts = async (filters = {}, language) => {
     params: filters,
     headers: { 'Accept-Language': contentLanguage },
   });
+};
+
+export const getChartData = async (storeId, ean = '') => {
+  const url = graphSearchUrl + storeId + '/' + ean;
+
+  return createGetRequest(url, {});
 };
