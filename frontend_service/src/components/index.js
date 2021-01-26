@@ -8,6 +8,7 @@ import DetailsPageFilters from './DetailsPageFilters';
 import Sidebar from './Sidebar';
 import Settings from './Settings';
 import SearchBar from './SearchBar';
+import SortSlider from './SortSlider';
 
 export {
   Navbar,
@@ -20,4 +21,5 @@ export {
   Sidebar,
   Settings,
   SearchBar,
+  SortSlider,
 };

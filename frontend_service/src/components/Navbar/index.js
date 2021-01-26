@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
 
@@ -14,15 +14,20 @@ function Navbar(props) {
   const { dispatch, state } = useContext(store);
   const history = useHistory();
   const { retailChain } = useLocation();
+  const inputRef = useRef(null);
 
   const showIcons = useLocation().pathname === links.details;
   const showClearIcon = !!state.searchQuery;
 
   const toggleSidebar = () => dispatch({ type: actions.SIDEBAR_TOGGLE, payload: !state.sidebarVisible });
-  const goToHomepage = () => history.push(links.homepage);
+  const goToHomepage = () => {
+    history.push(links.homepage);
+    dispatch({ type: actions.SAVE_FETCHED_FILTERS, payload: [] });
+  };
 
   const clearSearchQuery = () => {
     dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: '' });
+    inputRef.current?.handleChange({ target: { value: '' } });
     goToHomepage();
   };
 
@@ -36,7 +41,7 @@ function Navbar(props) {
           <Menu.Item>
             {!showIcons ? (
               <>
-                <SearchBar />
+                <SearchBar inputRef={inputRef} />
                 <Icon
                   name="times circle outline"
                   className={`navbar-icon clear-search ${showClearIcon ? '' : 'opacity-zero'}`}
