@@ -35,5 +35,7 @@ services:
     restart: always
     ports:
     - "5432:5432" # Cancel host port binding on prod
+    volumes:
+    - ./db_data/:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: portwontbeopened
