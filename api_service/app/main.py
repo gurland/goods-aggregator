@@ -32,7 +32,7 @@ async def product_store_prices_handler(request):
     ean = request.match_info['ean']
 
     q = BuckwheatProduct.select(
-        BuckwheatProduct.timestamp, BuckwheatProduct.price
+        BuckwheatProduct.timestamp, BuckwheatProduct.price_per_kg
     ).where((BuckwheatProduct.store_id == store_id) & (BuckwheatProduct.ean == ean))
 
     if q.count() == 0:
@@ -44,7 +44,7 @@ async def product_store_prices_handler(request):
     }
     for product in q:
         result["timestamps"].append(product.timestamp)
-        result["prices"].append(product.price)
+        result["prices"].append(product.price_per_kg)
 
     return web.json_response(result)
 
