@@ -30,7 +30,7 @@ function BrandCard({ brandData }) {
               return (
                 <Popup
                   content={product.title}
-                  position="right center"
+                  position="top center"
                   inverted={state.darkTheme}
                   key={store.id}
                   trigger={
