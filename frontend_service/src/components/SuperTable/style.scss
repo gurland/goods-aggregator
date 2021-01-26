@@ -11,3 +11,27 @@
     overflow: auto;
   }
 }
+
+table {
+  thead {
+    tr {
+      :nth-child(2) {
+        width: toRem(200px);
+      }
+      :nth-child(6) {
+        width: toRem(85px);
+      }
+    }
+    @media #{$max767} {
+      display: none !important;
+    }
+  }
+  tbody {
+    tr {
+      @media #{$max767} {
+        padding: 0 !important;
+        text-align: center;
+      }
+    }
+  }
+}
