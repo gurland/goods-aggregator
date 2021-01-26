@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import { store, actions } from '../../utils/store';
-import { retailChainsMock } from '../../utils/constants';
 import { createDarkThemeClassName } from '../../utils/helpers';
 import './style.scss';
 
@@ -11,7 +10,6 @@ import { BrandCard, Navbar } from '../../components';
 import { searchProducts } from '../../utils/api';
 
 function Homepage() {
-  const [retailChains, setRetailChains] = useState([]);
   const { state, dispatch } = useContext(store);
 
   useEffect(() => {

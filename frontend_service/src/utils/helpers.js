@@ -27,7 +27,7 @@ export const getItemFromLS = (key, defaultValue = null) => localStorage.getItem(
 
 export const getLanguageFromLS = () => getItemFromLS(languageLSKey, defaultContentLanguage);
 
-export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, false));
+export const getDarkThemeFromLS = () => JSON.parse(getItemFromLS(darkThemeLSKey, true));
 
 export const createDarkThemeClassName = (className, isDarkTheme) => `${className} ${isDarkTheme ? 'inverted' : ''}`;
 
@@ -37,3 +37,10 @@ export const formatPrice = (price, defaultValue = 0) => {
   const formattedPrice = (price / 100).toFixed(2);
   return isNaN(formattedPrice) ? defaultValue : formattedPrice;
 };
+
+export const getLowestPrice = (data) => {
+  return Math.min.apply(
+    Math,
+    data.map((item) => item.product.price),
+  );
+}
