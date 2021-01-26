@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useMemo } from 'react';
+import React, { useEffect, useState, useContext, useMemo, useCallback } from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
@@ -7,7 +7,7 @@ import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import { getProducts, searchProducts } from '../../utils/api';
 import { useWindowSize } from '../../utils/hooks';
-import { createDarkThemeClassName } from '../../utils/helpers';
+import { createDarkThemeClassName, getAddress, getRandomColor } from '../../utils/helpers';
 import { getChartData } from '../../utils/api';
 import './style.scss';
 
@@ -24,27 +24,55 @@ function Details() {
   const [tableData, setTableData] = useState([]);
   const [stores, setStores] = useState(storesFromCard);
 
-  const [series, setSeries] = useState([]);
+  const [graphData, setGraphData] = useState({ timestamps: [], series: [], names: [] });
 
   const [width] = useWindowSize();
 
+  const formatPrices = (prices) => prices.map((price) => parseInt(price.toFixed(2), 10) / 100);
+
+  const requestProductGraphData = useCallback(
+    async (ean, name) => {
+      const { data, status } = await getChartData(currentStoreId, ean);
+
+      if (status === 200) {
+        setGraphData({
+          timestamps: data.timestamps,
+          series: [{ name, type: 'line', data: formatPrices(data.prices), color: getRandomColor() }],
+          names: [...graphData.names, name],
+        });
+      }
+    },
+    [currentStoreId],
+  );
+
   useEffect(() => {
     (async () => {
-      if (currentStoreId) {
-        const { data: chardData, status: chartStatus } = await getChartData(currentStoreId, '04820153260696');
-        if (chartStatus === 200) {
-          setSeries([
-            {
-              name: 'Skvyrianka',
-              type: 'line',
-              data: chardData.prices,
-              color: '#5AD4EF',
-            },
-          ]);
-        }
+      if (stores.length) {
+        const data = await Promise.all(
+          stores.map(async ({ id, address }) => {
+            const { data, status } = await getChartData(id);
+            if (status === 200) {
+              const name = getAddress(address);
+              return { ...data, name };
+            }
+          }),
+        );
+
+        const filteredData = data.filter((a) => !!a);
+
+        const timestamps = data[0]?.timestamps || [];
+        const series = filteredData.map(({ prices, name }) => ({
+          name,
+          type: 'line',
+          data: formatPrices(prices),
+          color: getRandomColor(),
+        }));
+
+        setGraphData({ timestamps, series, names: filteredData.map(({ name }) => name).concat(graphData.names) });
       }
     })();
-  }, [currentStoreId]);
+  }, [stores]);
+
   useEffect(() => {
     if (retailChain) {
       setStoresLoading(true);
@@ -96,7 +124,10 @@ function Details() {
     state.sortType,
   ]);
 
-  const graph = useMemo(() => <PriceGraph className="details-page__price-graph" series={series} showGraph={!!category} />, [category, series]);
+  const graph = useMemo(
+    () => <PriceGraph className="details-page__price-graph" graphData={graphData} showGraph={!!category} />,
+    [category, graphData, graphData.names],
+  );
 
   const productTable = useMemo(
     () => (
@@ -106,9 +137,11 @@ function Details() {
         isLoading={productsLoading || storesLoading}
         tableData={tableData}
         setCurrentStoreId={setCurrentStoreId}
+        requestProductGraphData={requestProductGraphData}
+        showButton={!!category}
       />
     ),
-    [stores, productsLoading, storesLoading, tableData],
+    [stores, productsLoading, storesLoading, tableData, requestProductGraphData, category],
   );
 
   const detailsPageFilters = useMemo(

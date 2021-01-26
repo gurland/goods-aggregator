@@ -1,29 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, Header } from 'semantic-ui-react';
 import ReactEcharts from 'echarts-for-react';
 import './style.scss';
 import { store } from '../../utils/store';
-import { createDarkThemeClassName } from '../../utils/helpers';
+import { createDarkThemeClassName, formatDate } from '../../utils/helpers';
 
-function PriceGraph({ className, showGraph, series }) {
+function PriceGraph({ className, showGraph, graphData }) {
   const { state } = useContext(store);
-  const timeData = [];
-
-  for (let i = 1; i <= 30; i++) {
-    timeData.push(`2020/${i}/12`);
-  }
-
-  function getData() {
-    const data = [];
-
-    for (let i = 1; i <= 100; i++) {
-      data.push(Math.floor(Math.random() * Math.floor(40)));
-    }
-
-    return data;
-  }
+  const { names, timestamps, series } = graphData;
 
   function getOption() {
     const options = {
@@ -34,14 +20,14 @@ function PriceGraph({ className, showGraph, series }) {
         },
       },
       legend: {
-        data: ['Skvyrianka'],
+        data: names,
         show: true,
       },
       xAxis: {
         type: 'category',
         boundaryGap: false,
         axisLine: { onZero: false },
-        data: timeData,
+        data: formatDate(timestamps),
       },
       yAxis: {
         type: 'value',
@@ -58,7 +44,7 @@ function PriceGraph({ className, showGraph, series }) {
           end: 20,
         },
       ],
-      series,
+      series: series,
     };
 
     if (state.darkTheme) {

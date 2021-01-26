@@ -9,7 +9,15 @@ import { createDarkThemeClassName, getAddress } from '../../utils/helpers';
 import './style.scss';
 import { store } from '../../utils/store';
 
-function ProductTable({ className, stores, isLoading, tableData, setCurrentStoreId }) {
+function ProductTable({
+  className,
+  stores,
+  isLoading,
+  tableData,
+  setCurrentStoreId,
+  requestProductGraphData,
+  showButton,
+}) {
   const { state } = useContext(store);
   const isDarkTheme = state.darkTheme;
 
@@ -20,7 +28,11 @@ function ProductTable({ className, stores, isLoading, tableData, setCurrentStore
   const table = useMemo(
     () => (
       <div className="product-table-rows__scroll">
-        <SuperTable columns={productsColumns} data={tableData} className="product-table-rows" />
+        <SuperTable
+          columns={productsColumns(requestProductGraphData, showButton)}
+          data={tableData}
+          className="product-table-rows"
+        />
       </div>
     ),
     [tableData],

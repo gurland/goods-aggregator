@@ -47,7 +47,7 @@ export const searchProducts = async (filters = {}, language) => {
 };
 
 export const getChartData = async (storeId, ean = '') => {
-  const url = graphSearchUrl + storeId + '/' + ean;
+  const url = graphSearchUrl + storeId + (ean ? `/${ean}` : '');
 
   return createGetRequest(url, {});
 };

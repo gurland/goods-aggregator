@@ -1,6 +1,7 @@
 import { formatPrice } from '../../utils/helpers';
+import { Button } from 'semantic-ui-react';
 
-export const productsColumns = [
+export const productsColumns = (requestProductGraphData, showButton) => [
   {
     header: '',
     selector: 'producer',
@@ -38,4 +39,15 @@ export const productsColumns = [
     selector: 'web_url',
     cell: (original) => <a href={original.web_url}>Open page</a>,
   },
+  showButton
+    ? {
+        header: '',
+        selector: 'ean',
+        cell: (original) => (
+          <Button className="to-graph-button" onClick={() => requestProductGraphData(original.ean, original.title)}>
+            On graph
+          </Button>
+        ),
+      }
+    : {},
 ];
