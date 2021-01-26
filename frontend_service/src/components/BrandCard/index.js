@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Popup } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -28,12 +28,19 @@ function BrandCard({ brandData }) {
               const { address: addressData, product } = store;
               const address = getAddress(addressData);
               return (
-                <div className="info" key={store.id}>
-                  <span className="name" title={address}>
-                    {address}
-                  </span>
-                  <span className="value">{formatPrice(product.price) + ' ₴'}</span>
-                </div>
+                <Popup
+                  content={product.title}
+                  position="top center"
+                  inverted={state.darkTheme}
+                  key={store.id}
+                  trigger={
+                    <div className="info">
+                      <span className="name" title={address}>
+                        {address}
+                      </span>
+                      <span className="value">{formatPrice(product.price) + ' ₴'}</span>
+                    </div>
+                } />
               );
             })}
           </div>
