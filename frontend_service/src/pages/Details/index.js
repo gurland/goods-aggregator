@@ -76,7 +76,7 @@ function Details() {
     state.sortType,
   ]);
 
-  const graph = useMemo(() => <PriceGraph className="details-page__price-graph" />, []);
+  const graph = useMemo(() => <PriceGraph className="details-page__price-graph" showGraph={!!category} />, [category]);
 
   const productTable = useMemo(
     () => (
