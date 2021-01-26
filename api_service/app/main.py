@@ -1,8 +1,52 @@
 import asyncio
 
 from retail_chains import RETAIL_CHAINS
+from models import BuckwheatProduct
 
+from peewee import fn
 from aiohttp import web, ClientSession
+
+
+async def avg_store_prices_handler(request):
+    store_id = request.match_info['store_id']
+    q = BuckwheatProduct.select(
+        BuckwheatProduct.timestamp, fn.avg(BuckwheatProduct.price_per_kg).alias("avg_price_per_kg")
+    ).where(BuckwheatProduct.store_id == store_id).group_by(BuckwheatProduct.timestamp)
+
+    if q.count() == 0:
+        return web.json_response({"message": "Nothing found"}, status=404)
+
+    result = {
+        "timestamps": [],
+        "prices": []
+    }
+    for product in q:
+        result["timestamps"].append(product.timestamp)
+        result["prices"].append(product.avg_price_per_kg)
+
+    return web.json_response(result)
+
+
+async def product_store_prices_handler(request):
+    store_id = request.match_info['store_id']
+    ean = request.match_info['ean']
+
+    q = BuckwheatProduct.select(
+        BuckwheatProduct.timestamp, BuckwheatProduct.price
+    ).where((BuckwheatProduct.store_id == store_id) & (BuckwheatProduct.ean == ean))
+
+    if q.count() == 0:
+        return web.json_response({"message": "Nothing found"}, status=404)
+
+    result = {
+        "timestamps": [],
+        "prices": []
+    }
+    for product in q:
+        result["timestamps"].append(product.timestamp)
+        result["prices"].append(product.price)
+
+    return web.json_response(result)
 
 
 async def search_handler(request):
@@ -35,7 +79,11 @@ async def search_handler(request):
         return web.json_response(results)
 
 app = web.Application()
-app.add_routes([web.get('/api/v1/search', search_handler)])
+app.add_routes([
+    web.get('/api/v1/search', search_handler),
+    web.get('/api/v1/prices/{store_id}', avg_store_prices_handler),
+    web.get('/api/v1/prices/{store_id}/{ean}', product_store_prices_handler),
+])
 
 if __name__ == '__main__':
     web.run_app(app)
