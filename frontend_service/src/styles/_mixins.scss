@@ -1,0 +1,25 @@
+//Font size
+@function toRem($size) {
+  $remSize: $size / 14px;
+  @return #{$remSize}rem;
+}
+@mixin font-size($size) {
+  font-size: toRem($size);
+}
+
+//Media
+$max480 : only screen and (max-width: 480px);
+$min481 : only screen and (min-width: 481px);
+$max543 : only screen and (max-width: 543px);
+$min544 : only screen and (min-width: 544px);
+$max767 : only screen and (max-width: 767px);
+$min768 : only screen and (min-width: 768px);
+$max991 : only screen and (max-width: 991px);
+$min992 : only screen and (min-width: 992px);
+$max1199 : only screen and (max-width: 1199px);
+$min1200 : only screen and (min-width: 1200px);
+$max1280 : only screen and (max-width: 1280px);
+$min1281 : only screen and (min-width: 1281px);
+
+//Constants
+$navbar-height: 64px;

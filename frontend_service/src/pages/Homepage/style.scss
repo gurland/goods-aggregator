@@ -1,0 +1,37 @@
+@import '../../styles/mixins';
+
+.main-content {
+  .cards-wrap {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+
+    .card {
+      min-width: toRem(300px);
+      width: toRem(300px);
+      height: toRem(300px);
+      margin: 0 toRem(15px) !important;
+
+      @media #{$max1199} {
+        width: 50%;
+        min-width: 50%;
+      }
+      @media #{$max767} {
+        width: 100%;
+        min-width: 100%;
+      }
+    }
+    @media #{$max1199} {
+      flex-direction: column;
+
+      .card {
+        margin: 0 0 toRem(10px) 0 !important;
+
+        &:last-child {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+  }
+}

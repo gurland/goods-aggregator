@@ -1,0 +1,37 @@
+@import '../../styles/mixins';
+
+.brand-card {
+  .content {
+    .retail-name {
+      text-transform: capitalize;
+    }
+    .description {
+      .info-wrap {
+        .info {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: toRem(3px);
+        }
+      }
+    }
+    &.extra {
+      align-items: center;
+      display: flex;
+
+      .price {
+        width: 100%;
+        text-align: right;
+        font-size: toRem(35px);
+        color: #000000;
+      }
+    }
+  }
+  &:hover {
+    box-shadow: 0 0.07143rem 0.71429rem 0 rgba(34, 36, 38, 0.15) !important;
+  }
+  &.inverted {
+    &:hover {
+      border-color: #212936 !important;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "frontend_service",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "echarts": "^4.0.0",
+    "echarts-for-react": "^2.0.16",
+    "gzipper": "^4.3.0",
+    "moment": "^2.29.1",
+    "node-sass": "4.14.1",
+    "prop-types": "^15.7.2",
+    "qs": "^6.9.6",
+    "ramda": "^0.27.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && gzipper c --verbose ./build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.27.35",
+    "@types/react": "^17.0.0",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/semantic-ui": "^2.2.7",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "2.2.1"
+  }
+}
