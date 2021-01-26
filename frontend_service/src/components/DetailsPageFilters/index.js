@@ -70,7 +70,7 @@ function DetailsPageFilters({ className, filters, selectedFilters, isLoading }) 
   return (
     <Card fluid className={createDarkThemeClassName(className, state.darkTheme)}>
       <Card.Content>
-        {isLoading ? (
+        {isLoading && !filters.length ? (
           <Loader active inline="centered" />
         ) : (
           <List>

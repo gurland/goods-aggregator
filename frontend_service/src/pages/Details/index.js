@@ -97,10 +97,10 @@ function Details() {
         className="details-page__filters"
         filters={state.filters}
         selectedFilters={state.selectedFilters}
-        isLoading={false} // TODO find a better solution to show preloader
+        isLoading={productsLoading}
       />
     ),
-    [state.filters, state.selectedFilters],
+    [productsLoading, state.filters, state.selectedFilters],
   );
 
   if (!retailChain) return <Redirect to={links.homepage} />;

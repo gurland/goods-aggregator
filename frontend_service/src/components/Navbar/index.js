@@ -19,7 +19,10 @@ function Navbar(props) {
   const showClearIcon = !!state.searchQuery;
 
   const toggleSidebar = () => dispatch({ type: actions.SIDEBAR_TOGGLE, payload: !state.sidebarVisible });
-  const goToHomepage = () => history.push(links.homepage);
+  const goToHomepage = () => {
+    history.push(links.homepage);
+    dispatch({ type: actions.SAVE_FETCHED_FILTERS, payload: [] });
+  };
 
   const clearSearchQuery = () => {
     dispatch({ type: actions.SAVE_SEARCH_QUERY, payload: '' });
