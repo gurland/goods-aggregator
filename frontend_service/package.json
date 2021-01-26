@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && gzipper --verbose ./build",
+    "build": "react-scripts build && gzipper c --verbose ./build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
