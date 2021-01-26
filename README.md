@@ -23,7 +23,15 @@ Aggregating data about buckwheat (and any other goods) from different local stor
 - Nginx
 
 ## How to run
-### Docker
+
+### Prerequisite
+1. Install [Docker](https://docs.docker.com/get-docker/)
+2. Install [Docker-compose](https://docs.docker.com/compose/install/)
+3. Optional: install SSL certificate for your server using [certbot](https://certbot.eff.org/)
+
+If you omit step 3 please remove all files inside `nginx_service/block_configs` and copy `goods-aggregator-nossl.conf` there
+
+### Download & Run
 ```sh
 git clone https://github.com/gurland/goods-aggregator.git
 cd goods-aggregator
