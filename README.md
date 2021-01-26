@@ -42,7 +42,7 @@ docker-compose up
 
 - [Roman Matuk](https://github.com/r666666)
 
-- [Konstantin Pasalskyi](https://github.com/kiririnou)
+- [Kostiantyn Pasalskyi](https://github.com/kiririnou)
 
 
 ## License
