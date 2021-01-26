@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Card, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { links } from '../../utils/constants';
-import { getArrayOfProps, getAddress, formatPrice } from '../../utils/helpers';
+import { getArrayOfProps, createDarkThemeClassName, getAddress, formatPrice } from '../../utils/helpers';
+import { store } from '../../utils/store';
 import './style.scss';
 
 function BrandCard({ brandData }) {
+  const { state } = useContext(store);
+
   return (
-    <Card className="brand-card">
+    <Card className={createDarkThemeClassName('brand-card', state.darkTheme)}>
       <Card.Content>
         <Card.Header className="retail-name">{brandData.name}</Card.Header>
         <Card.Description>

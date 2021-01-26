@@ -7,6 +7,7 @@ import { links } from '../../utils/constants';
 import { store, actions } from '../../utils/store';
 import { getProducts, searchProducts } from '../../utils/api';
 import { useWindowSize } from '../../utils/hooks';
+import { createDarkThemeClassName } from '../../utils/helpers';
 import './style.scss';
 
 const SHOW_SIDEBAR_WIDTH = 1200;
@@ -98,7 +99,12 @@ function Details() {
   if (!retailChain) return <Redirect to={links.homepage} />;
 
   const createDetailsPage = (withSidebar = false) => (
-    <div className={`details-page ${withSidebar ? 'with-sidebar' : ''}`}>
+    <div
+      className={createDarkThemeClassName(
+        `details-page main-content ${withSidebar ? 'with-sidebar' : ''}`,
+        state.darkTheme,
+      )}
+    >
       <Grid centered className="details-page__grid">
         <Grid.Row columns={2}>
           <Grid.Column largeScreen={13} computer={16} widescreen={13} className="details-page__grid--left-column">

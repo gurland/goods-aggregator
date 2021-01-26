@@ -2,7 +2,7 @@
 
 .details-page {
   height: calc(100% - #{$navbar-height});
-  padding: 15px 15px 0 15px;
+  padding: toRem(15px) toRem(15px) 0 toRem(15px) !important;
 
   &.with-sidebar {
     height: 100% !important;

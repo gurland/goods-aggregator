@@ -1,13 +1,17 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+import { store, actions } from '../../utils/store';
+import { retailChainsMock } from '../../utils/constants';
+import { createDarkThemeClassName } from '../../utils/helpers';
+import './style.scss';
 
 import { Loader } from 'semantic-ui-react';
 import { BrandCard, Navbar } from '../../components';
 
-import './style.scss';
 import { searchProducts } from '../../utils/api';
-import { store, actions } from '../../utils/store';
 
 function Homepage() {
+  const [retailChains, setRetailChains] = useState([]);
   const { state, dispatch } = useContext(store);
 
   useEffect(() => {
@@ -23,7 +27,7 @@ function Homepage() {
 
   return (
     <>
-      <div className="main-content">
+      <div className={createDarkThemeClassName('main-content', state.darkTheme)}>
         <div className="cards-wrap">
           {state.homepageLoading ? (
             <Loader active inline="centered" />
